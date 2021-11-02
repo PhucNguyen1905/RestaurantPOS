@@ -9,5 +9,7 @@ Run project: **npm start**
 
 Open http://localhost:8080/ to access home page
 
+Image Link: https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/ + food.image. Just store image name in database
+
 
 
