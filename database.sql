@@ -5,6 +5,7 @@ CREATE TABLE `food` (
 	`name` varchar(40),
 	`price` int,
  	`categories` int,
+	`brief` varchar(255),
 	`description` varchar(255),
 	`image` varchar(255),
 	PRIMARY KEY (id)
