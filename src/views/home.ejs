@@ -1,15 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include ('layouts/header') -%>
+<!-- home section starts  -->
+<section class="home" id="home">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShibaRes</title>
-</head>
+    <div class="swiper-container home-slider">
 
-<body>
-    <h1>Hello World!</h1>
-</body>
+        <div class="swiper-wrapper wrapper">
 
-</html>
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>our special dish</span>
+                    <h3>spicy noodles</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit natus dolor cumque?</p>
+                    <a href="#" class="btn">order now</a>
+                </div>
+                <div class="image">
+                    <img src="/images/home-img-1.png" alt="">
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>our special dish</span>
+                    <h3>fried chicken</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit natus dolor cumque?</p>
+                    <a href="#" class="btn">order now</a>
+                </div>
+                <div class="image">
+                    <img src="/images/home-img-2.png" alt="">
+                </div>
+            </div>
+
+            <div class="swiper-slide slide">
+                <div class="content">
+                    <span>our special dish</span>
+                    <h3>hot pizza</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit natus dolor cumque?</p>
+                    <a href="#" class="btn">order now</a>
+                </div>
+                <div class="image">
+                    <img src="/images/home-img-3.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- dishes section starts  -->
+
+<section class="dishes" id="dishes">
+
+    <h3 class="sub-heading"> our dishes </h3>
+    <h1 class="heading"> popular dishes </h1>
+
+    <div class="box-container">
+        <% for(let i=0;i< 8; i++){%>
+        <div class="box">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="/menu/<%= rows[i].id %>" class="fas fa-eye"></a>
+            <img src="https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/<%= rows[i].image %>"
+                alt="">
+            <h3><%= rows[i].name %> </h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span><%= rows[i].price %> VND</span>
+            <a href="/cart/add/<%= rows[i].id %>" class="btn">add to cart</a>
+        </div>
+        <%};  %>
+
+    </div>
+
+</section>
+
+<!-- dishes section ends -->
+
+
+
+<!-- loader part  -->
+<!-- <div class="loader-container">
+    <img src="/images/loader.gif" alt="">
+</div> -->
+
+<%- include ('layouts/footer') -%>

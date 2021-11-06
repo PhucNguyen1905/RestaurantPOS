@@ -1,0 +1,46 @@
+<%- include ('layouts/header') -%>
+
+
+<!-- order section starts  -->
+
+<section style="margin-top: 4.5em;" class="about" id="">
+
+    <h3 class="sub-heading"> Our Food </h3>
+    <h1 class="heading"> is the best </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/<%= dish.image %>"
+                alt="">
+        </div>
+
+        <div class="content">
+            <h3><%= dish.name %> </h3>
+            <p><%= dish.brief %></p>
+            <p><%= dish.description %></p>
+            <div class="icons-container">
+                <div class="icons">
+                    <i class="fas fa-utensils"></i>
+                    <span><%=category %></span>
+                </div>
+                <div class="icons">
+                    <i class="fas fa-wallet"></i>
+                    <span><%= dish.price %> VND</span>
+                </div>
+                <div class="icons">
+                    <i class="fas fa-star"></i>
+                    <span>4,5</span>
+                </div>
+            </div>
+            <a href="/cart/add/<%= dish.id %>" class="btn">Add to cart</a>
+            <a href="/menu" class="btn">Back to menu</a>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- order section ends -->
+<%- include ('layouts/footer') -%>
