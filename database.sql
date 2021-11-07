@@ -31,3 +31,49 @@ INSERT INTO food(name,price,categories,brief,description,image) VALUES('Gà xào
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Nước nha đam đường phèn',30000,3,'Giải độc cơ thể, giúp làn da tươi sáng.',' Nha đam còn rất tốt cho sức khỏe, chữa bệnh huyết áp, xơ gan, béo phì', 'nha-dam.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh chuối nướng',40000,2,'Món tuyệt vời để tráng miệng mà không sợ béo phì','Chuối nướng béo ngậy mùi nước cốt dừa cùng miếng chuối mềm ngon sẽ là món tráng miệng phù hợp với mọi người ', 'banh-chuoi.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh cuộn tinh than tre',45000,2,'hương vị đặc biệt, mà nó còn đem lại nhiều lợi ích tốt đẹp cho sức khỏe','Bánh cuộn vốn nổi tiếng bởi sự mềm, xốp mà không loại bánh nào sánh được, sẽ càng thêm ngon khi kết với tinh than tre thanh nhẹ nữa. ', 'tinh-than-tre.jpg');
+
+
+
+
+
+-- Create table order
+
+CREATE TABLE `Order` (
+	`id` int NOT NULL AUTO_INCREMENT, 
+	`name` varchar(40),
+	`number` varchar(10),
+ 	`orderlist` text,
+	`additional_food` varchar(255),
+	`how much` int,
+	`date_order` date,
+	PRIMARY KEY (id)
+);
+
+-- Create customer
+
+CREATE TABLE `Customer` (
+	`id` int NOT NULL AUTO_INCREMENT, 
+	`name` varchar(40),
+	`number` varchar(10),
+ 	`point` int,
+	`additional_food` varchar(255),
+	`history` text,
+	`feedbackID` text,
+	PRIMARY KEY (id) 
+);
+
+
+--Create Feedback
+CREATE TABLE `Feedback` (
+    `id` int NOT NULL AUTO_INCREMENT, 
+	`content` text,
+	`CustomerID` int,
+	PRIMARY KEY (id),
+	FOREIGN KEY (CustomerID) REFERENCES Customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Create Manager
+CREATE TABLE `Manager` (
+    `id` int NOT NULL AUTO_INCREMENT, 
+	PRIMARY KEY (id)
+);
