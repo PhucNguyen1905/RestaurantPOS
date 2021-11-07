@@ -56,7 +56,7 @@ CREATE TABLE `Customer` (
 	`name` varchar(40),
 	`phone` varchar(10),
 	`mail` varchar(20),
-	`password` varchar(10),
+	`password` varchar(20),
  	`point` int,
 	`history` text,
 	`feedbackID` int,
