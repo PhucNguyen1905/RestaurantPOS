@@ -41,7 +41,7 @@ INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh cu
 CREATE TABLE `Order` (
 	`id` int NOT NULL AUTO_INCREMENT, 
 	`name` varchar(40),
-	`number` varchar(10),
+	`phonen` varchar(10),
  	`orderlist` text,
 	`additional_food` varchar(255),
 	`how much` int,
@@ -54,16 +54,17 @@ CREATE TABLE `Order` (
 CREATE TABLE `Customer` (
 	`id` int NOT NULL AUTO_INCREMENT, 
 	`name` varchar(40),
-	`number` varchar(10),
+	`phone` varchar(10),
+	`mail` varchar(20),
+	`password` varchar(10),
  	`point` int,
-	`additional_food` varchar(255),
 	`history` text,
 	`feedbackID` int,
 	PRIMARY KEY (id) 
 );
 
 
---Create Feedback
+-- Create Feedback
 CREATE TABLE `Feedback` (
     `id` int NOT NULL AUTO_INCREMENT, 
 	`content` text,
@@ -73,7 +74,11 @@ CREATE TABLE `Feedback` (
 );
 
 -- Create Manager
-CREATE TABLE `Manager` (
+CREATE TABLE `Staff` (
     `id` int NOT NULL AUTO_INCREMENT, 
+	`phone` varchar(10),
+	`email` varchar(20),
+	`password` varchar(20),
+	`role_id` int,
 	PRIMARY KEY (id)
 );
