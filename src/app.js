@@ -41,5 +41,5 @@ app.use('/', userRoute);
 let port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-    console.log("Running on port: " + port);
+    console.log(`http://localhost:${port}`);
 });
