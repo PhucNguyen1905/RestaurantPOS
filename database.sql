@@ -58,7 +58,7 @@ CREATE TABLE `Customer` (
  	`point` int,
 	`additional_food` varchar(255),
 	`history` text,
-	`feedbackID` text,
+	`feedbackID` int,
 	PRIMARY KEY (id) 
 );
 
