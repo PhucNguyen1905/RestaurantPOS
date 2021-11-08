@@ -82,3 +82,12 @@ CREATE TABLE `Staff` (
 	`role_id` int,
 	PRIMARY KEY (id)
 );
+
+CREATE TABLE `Category` (
+    `id` int NOT NULL AUTO_INCREMENT, 
+	`foodid` int,
+	PRIMARY KEY (id),
+    FOREIGN KEY (foodid) REFERENCES food (ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
