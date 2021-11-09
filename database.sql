@@ -12,7 +12,7 @@ CREATE TABLE `food` (
 	PRIMARY KEY (id)
 );
 -- Image Link: https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/ + food.image. Just store image name in database
--- 0: Mon chinh, 1: Mon khai vi, 2: Mon trang mieng, 3: Nuoc uong
+-- 1: Mon chinh, 2: Mon khai vi, 3: Mon trang mieng, 4: Nuoc uong
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Gà cuộn phô mai chiên xù',119000,0,'Thịt gà béo ngậy hòa quyện cùng phô mai.','Nếu muốn thay đổi khẩu vị và làm mới vị giác. Thử ngay món gà cuộn phô mai chiên xù ăn kèm cùng khoai tây nghiền thơm ngon. Bữa ăn sẽ thật đáng nhớ!','chicken-roll.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Mỳ ý sốt kem trứng cá chuồn',139000,0,'Mì ý mang hương vị Nhật nguyên chất','Món ăn có sốt kem beo béo, thơm thơm và trứng cá chuồn lạ miệng ăn kèm chút rong biển sấy, hòa quyện, vương vẫn mãi.','Tobiko_cream_pasta_elsol_1.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Sườn heo sốt BBQ',129000,0,'Nước sốt nhiều loại, chuẩn vị BBQ','Món sườn heo nướng BBQ thơm ngon đặc trưng và rất Âu nhé! Thưởng thức sốt BBQ chua ngọt này rồi bạn sẽ chẳng quên được hương vị hay miếng sườn mềm rụng này.','suon-heo-sot-bbq-elsol.png');
