@@ -8,6 +8,7 @@ CREATE TABLE `food` (
 	`brief` varchar(255),
 	`description` varchar(255),
 	`image` varchar(255),
+	`status` varchar(15) DEFAULT 'on',
 	PRIMARY KEY (id)
 );
 -- Image Link: https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/ + food.image. Just store image name in database
@@ -27,7 +28,7 @@ INSERT INTO food(name,price,categories,brief,description,image) VALUES('Beaf Ste
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Thịt dê nướng',120000,0,'Đặc sản của nước Áo','Thịt sau khi được xắt lát mỏng thì được đập cho mềm, ướp gia vị vừa ăn và lăn qua vụn bánh mì khô, bột chiên giòn và trứng gà. Công đoạn tiếp theo chính là chiên thịt đã tẩm ướp trong dầu hoặc bơ.  ', 'de-nuong.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Carbonnade Flamande',110000,0,'Món thịt hầm nổi tiếng của nước Bỉ','Là một trong số những món ăn Châu Âu nổi tiếng, Carbonnade Flamande với nguyên liệu chính là thịt bò, hành tây và bia. ', 'carbonnade.jpeg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Gỏi củ hủ dừa',80000,1,'Món gỏi có vị chua cay nên luôn được mọi người chọn là món ăn khai tiệc','Củ hủ dừa còn được gọi bằng cái tên thân quen là đọt dừa. Đọt dừa chính là phần lõi non nhất của ngọn trên thân cây dừa. ', 'goi-dua.jpg');
-INSERT INTO food(name,price,categories,brief,description,image) VALUES('Gà xào hạt điều',80000,1,'Một món ăn bổ dưỡng và thơm ngon',' Nó có chứa rất nhiều protein và chất béo. Nó được xem là một món ăn nhẹ, có vị ngọt bùi và là một loại thực phẩm lành mạnh, ngon ngọt và nhiều chất dinh dưỡng. ', 'suon-kinh-do.jpeg');
+INSERT INTO food(name,price,categories,brief,description,image) VALUES('Gà xào hạt điều',80000,1,'Một món ăn bổ dưỡng và thơm ngon',' Nó có chứa rất nhiều protein và chất béo. Nó được xem là một món ăn nhẹ, có vị ngọt bùi và là một loại thực phẩm lành mạnh, ngon ngọt và nhiều chất dinh dưỡng. ', 'ga-xao-hat-dieu.jpeg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Nước nha đam đường phèn',30000,3,'Giải độc cơ thể, giúp làn da tươi sáng.',' Nha đam còn rất tốt cho sức khỏe, chữa bệnh huyết áp, xơ gan, béo phì', 'nha-dam.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh chuối nướng',40000,2,'Món tuyệt vời để tráng miệng mà không sợ béo phì','Chuối nướng béo ngậy mùi nước cốt dừa cùng miếng chuối mềm ngon sẽ là món tráng miệng phù hợp với mọi người ', 'banh-chuoi.jpg');
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh cuộn tinh than tre',45000,2,'hương vị đặc biệt, mà nó còn đem lại nhiều lợi ích tốt đẹp cho sức khỏe','Bánh cuộn vốn nổi tiếng bởi sự mềm, xốp mà không loại bánh nào sánh được, sẽ càng thêm ngon khi kết với tinh than tre thanh nhẹ nữa. ', 'tinh-than-tre.jpg');
@@ -36,18 +37,6 @@ INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh cu
 
 
 
--- Create table order
-
-CREATE TABLE `Order` (
-	`id` int NOT NULL AUTO_INCREMENT, 
-	`name` varchar(40),
-	`phonen` varchar(10),
- 	`orderlist` text,
-	`additional_food` varchar(255),
-	`how much` int,
-	`date_order` date,
-	PRIMARY KEY (id)
-);
 
 -- Create customer
 
@@ -73,6 +62,20 @@ CREATE TABLE `Feedback` (
 	FOREIGN KEY (CustomerID) REFERENCES Customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- Create table order
+
+CREATE TABLE `Order` (
+	`id` int NOT NULL AUTO_INCREMENT, 
+	`name` varchar(40),
+	`phonen` varchar(10),
+ 	`orderlist` text,
+	`additional_food` varchar(255),
+	`how much` int,
+	`date_order` date,
+	`customerid` int,
+	PRIMARY KEY (id),
+	 FOREIGN KEY (customerid) REFERENCES customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
 -- Create Manager
 CREATE TABLE `Staff` (
     `id` int NOT NULL AUTO_INCREMENT, 
@@ -85,9 +88,10 @@ CREATE TABLE `Staff` (
 
 CREATE TABLE `Category` (
     `id` int NOT NULL AUTO_INCREMENT, 
-	`foodid` int,
-	PRIMARY KEY (id),
-    FOREIGN KEY (foodid) REFERENCES food (ID) ON DELETE CASCADE ON UPDATE CASCADE
+	`name` varchar(30),
+	PRIMARY KEY (id)
 );
-
-
+INSERT INTO `category` (`id`, `name`) VALUES ('1', 'Món chính');
+INSERT INTO `category` (`id`, `name`) VALUES ('2', 'Món khai vị');
+INSERT INTO `category` (`id`, `name`) VALUES ('3', 'Tráng miệng');
+INSERT INTO `category` (`id`, `name`) VALUES ('4', 'Nước uống');
