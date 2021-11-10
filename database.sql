@@ -74,7 +74,7 @@ CREATE TABLE `Order` (
 	`date_order` date,
 	`customerid` int,
 	PRIMARY KEY (id),
-	 FOREIGN KEY (customerid) REFERENCES customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
+	 FOREIGN KEY (customerid) REFERENCES Customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- Create Manager
 CREATE TABLE `Staff` (
@@ -91,7 +91,7 @@ CREATE TABLE `Category` (
 	`name` varchar(30),
 	PRIMARY KEY (id)
 );
-INSERT INTO `category` (`id`, `name`) VALUES ('1', 'Món chính');
-INSERT INTO `category` (`id`, `name`) VALUES ('2', 'Món khai vị');
-INSERT INTO `category` (`id`, `name`) VALUES ('3', 'Tráng miệng');
-INSERT INTO `category` (`id`, `name`) VALUES ('4', 'Nước uống');
+INSERT INTO `Category` (`id`, `name`) VALUES ('1', 'Món chính');
+INSERT INTO `Category` (`id`, `name`) VALUES ('2', 'Món khai vị');
+INSERT INTO `Category` (`id`, `name`) VALUES ('3', 'Tráng miệng');
+INSERT INTO `Category` (`id`, `name`) VALUES ('4', 'Nước uống');
