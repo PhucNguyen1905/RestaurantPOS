@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const bodyParser = require("body-parser");
+const passport = require('passport');
 
 require("dotenv").config();
 
@@ -25,15 +26,38 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+// // Express Messages middleware
+// app.use(require('connect-flash')());
+// app.use(function (req, res, next) {
+//     res.locals.messages = require('express-messages')(req, res);
+//     next();
+// });
+
+// Set global errors variable
+app.locals.errors = null;
+
+
+// Passport config
+require('./config/passport')(passport);
+// Passport middlware
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.get('*', (req, res, next) => {
     res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
     next();
 })
 
+
 //Router
 const userRoute = require('./routes/user');
-const cartRoute = require("./routes/cart");
+const cartRoute = require('./routes/cart');
+const adminRoute = require('./routes/admin');
 
+app.use('/admin', adminRoute);
 app.use('/cart', cartRoute);
 app.use('/', userRoute);
 

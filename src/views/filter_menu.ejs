@@ -8,15 +8,11 @@
     <h1 class="heading"> today's speciality </h1>
     <form action="/menu/filter" method="POST">
         <select name="category" class="form-select form-select-lg mb-3" style="font-size: 2rem;">
-            <% let i = 4; %>
-            <option value="<%= i %>" <% if (categories[i] ==title) { %> selected="selected" <% } %>>
-                <%= categories[i] %>
-            </option>
-            <% for(let i=0; i<4;i++){%>
-            <option value="<%= i %>" <% if (categories[i] ==title) { %> selected="selected" <% } %>>
-                <%= categories[i] %>
-            </option>
-            <% }; %>
+            <% let i = 0; %>
+            <option value="<%= i %>" <% if (catID == i) { %> selected="selected" <% } %>>Tất cả</option>
+            <% categories.forEach(function(cat){ %>
+            <option value="<%= cat.id %>" <% if(cat.id == catID){%> selected="selected" <%} %>><%= cat.name %></option>
+            <% }) %>
         </select>
         <div class="d-grid gap-2">
             <button class="btn btn-primary btnFilter" type="submit">Submit</button>

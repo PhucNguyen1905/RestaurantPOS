@@ -30,12 +30,7 @@ exports.viewCart = (req, res) => {
 
 }
 
-function getCategory(num) {
-    if (num == 0) { return 'Món chính'; }
-    else if (num == 1) { return 'Món khai vị'; }
-    else if (num == 2) { return 'Tráng miệng'; }
-    else { return 'Nước uống' }
-}
+
 
 // Add food to cart
 exports.addFood = (req, res) => {
@@ -51,7 +46,7 @@ exports.addFood = (req, res) => {
                     qty: 1,
                     price: parseInt(food.price),
                     image: baseURLImg + food.image,
-                    category: getCategory(food.categories),
+                    category: food.categories,
                     id: id
                 })
             } else {
@@ -70,7 +65,7 @@ exports.addFood = (req, res) => {
                         qty: 1,
                         price: parseInt(food.price),
                         image: baseURLImg + food.image,
-                        category: getCategory(food.categories),
+                        category: food.categories,
                         id: id
                     })
                 }
@@ -78,7 +73,6 @@ exports.addFood = (req, res) => {
         } else {
             console.log(err);
         }
-        console.log(req.session.cart)
         res.redirect('/menu');
 
     });

@@ -1,0 +1,32 @@
+<%- include ('../layouts/admin_header') -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Add new Category</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
+                <li class="breadcrumb-item active">Add new Category</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    <a class="btn btn-primary" href="/admin/category">Back to all Categories</a>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="/admin/category/add-category">
+
+                        <div class="form-group">
+                            <label for="">Add</label>
+                            <input type="text" class="form-control" name="name" placeholder="Name of new Category">
+                        </div>
+
+                        <button class="btn btn-success mt-2">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <%- include ('../layouts/admin_footer') -%>

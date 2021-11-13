@@ -1,0 +1,92 @@
+<%- include ('../layouts/admin_header') -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
+                <strong>Success!</strong> <%= messages %>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h1 class="mt-4">Category</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                <li class="breadcrumb-item active">List of Categories</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    <a class="btn btn-success" href="/admin/category/add-category">Add new Category</a>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% let i = 1; %>
+                            <% categories.forEach(function(cat){%>
+                            <tr>
+                                <td><%= i %> </td>
+                                <td><%= cat.name %> </td>
+                                <td style="text-align: center;">
+                                    <a class=" link-info" style="text-decoration: none;"
+                                        href="/admin/category/edit-category/<%=cat.id%>">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    -
+                                    <a class="link-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal<%= cat.id %>" style="text-decoration: none;">
+                                        Delete
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deleteModal<%= cat.id %>" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete category <%=cat.name%>?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <a style="text-decoration: none; color: white;"
+                                                            href="/admin/category/delete-category/<%=cat.id%>">Delete</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <% i++; %>
+                            </tr>
+
+                            <%}) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include ('../layouts/admin_footer') -%>

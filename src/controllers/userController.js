@@ -36,13 +36,21 @@ function getCategory(num) {
 
 // GET food detail
 exports.viewDetail = (req, res) => {
-    connection.query("SELECT * FROM food WHERE id = ?", [req.params.id], (err, dishes) => {
-        if (!err) {
-            res.render('food_detail', {
-                title: dishes[0].name,
-                category: getCategory(dishes[0].categories),
-                dish: dishes[0]
-            })
+    connection.query("SELECT * FROM food WHERE id = ?", [req.params.id], (error, dishes) => {
+        if (!error) {
+            connection.query('SELECT * FROM category WHERE id = ?', [dishes[0].categories], (err, categories) => {
+                // When done with the connection, release it
+                if (!err) {
+                    res.render('food_detail', {
+                        title: dishes[0].name,
+                        category: categories[0].name,
+                        dish: dishes[0]
+                    })
+                } else {
+                    console.log(err);
+                }
+
+            });
         } else {
             console.log(err);
         }
@@ -54,13 +62,24 @@ exports.viewDetail = (req, res) => {
 
 // View menu
 exports.viewMenu = (req, res) => {
-    connection.query('SELECT * FROM food', (err, rows) => {
+    let status = 'on';
+    connection.query('SELECT * FROM food WHERE status = ?', [status], (error, rows) => {
         // When done with the connection, release it
-        if (!err) {
-            res.render('menu', {
-                rows: rows,
-                title: 'Menu'
+        if (!error) {
+            connection.query('SELECT * FROM category', (err, categories) => {
+                // When done with the connection, release it
+                if (!err) {
+                    res.render('menu', {
+                        rows: rows,
+                        categories: categories,
+                        title: 'Menu'
+                    });
+                } else {
+                    console.log(err);
+                }
+
             });
+
         } else {
             console.log(err);
         }
@@ -71,31 +90,51 @@ exports.viewMenu = (req, res) => {
 // View menu by Filter
 exports.viewMenuFilter = (req, res) => {
     let cat = req.body.category;
-    let categories = ['Món chính', 'Khai vị', 'Tráng miệng', 'Nước uống', 'Tất cả'];
-    if (cat == 4) {
-        connection.query('SELECT * FROM food', (err, rows) => {
-            if (!err) {
-                res.render('filter_menu', {
-                    rows: rows,
-                    title: 'Tất cả',
-                    categories: categories
+    let status = 'on'
+    if (cat == 0) {
+        connection.query('SELECT * FROM food WHERE status = ?', [status], (error, rows) => {
+            if (!error) {
+                connection.query('SELECT * FROM category', (err, categories) => {
+                    // When done with the connection, release it
+                    if (!err) {
+                        res.render('filter_menu', {
+                            rows: rows,
+                            title: 'Tất cả',
+                            catID: cat,
+                            categories: categories
+                        });
+                    } else {
+                        console.log(err);
+                    }
+
                 });
+
             } else {
-                console.log(err);
+                console.log(error);
             }
 
         });
     }
     else {
-        connection.query('SELECT * FROM food WHERE categories = ?', [cat], (err, rows) => {
-            if (!err) {
-                res.render('filter_menu', {
-                    rows: rows,
-                    title: getCategory(cat),
-                    categories: categories
+        connection.query('SELECT * FROM food WHERE status = ? AND categories = ?', [status, cat], (error, rows) => {
+            if (!error) {
+                connection.query('SELECT * FROM category', (err, categories) => {
+                    // When done with the connection, release it
+                    if (!err) {
+                        res.render('filter_menu', {
+                            rows: rows,
+                            title: 'Filter Menu',
+                            catID: cat,
+                            categories: categories
+                        });
+                    } else {
+                        console.log(err);
+                    }
+
                 });
+
             } else {
-                console.log(err);
+                console.log(error);
             }
 
         });
@@ -105,14 +144,23 @@ exports.viewMenuFilter = (req, res) => {
 // View menu by Search
 exports.viewMenuSearch = (req, res) => {
     let search = req.body.search;
-    connection.query('SELECT * FROM food WHERE name LIKE ?', '%' + [search] + '%', (err, rows) => {
-        if (!err) {
-            res.render('menu', {
-                rows: rows,
-                title: 'Menu'
+    connection.query("SELECT * FROM food WHERE status = 'on' AND name LIKE ?", '%' + [search] + '%', (error, rows) => {
+        if (!error) {
+            connection.query('SELECT * FROM category', (err, categories) => {
+                // When done with the connection, release it
+                if (!err) {
+                    res.render('menu', {
+                        rows: rows,
+                        categories: categories,
+                        title: 'Menu'
+                    });
+                } else {
+                    console.log(err);
+                }
+
             });
         } else {
-            console.log(err);
+            console.log(error);
         }
 
     });

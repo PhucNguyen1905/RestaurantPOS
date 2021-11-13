@@ -8,12 +8,11 @@
     <h1 class="heading"> today's speciality </h1>
     <form action="/menu/filter" method="post">
         <select name="category" class="form-select form-select-lg mb-3" style="font-size: 2rem;">
-            <option selected value="4">Chọn loại món ăn</option>
-            <option value="4">Tất cả</option>
-            <option value="0">Món chính</option>
-            <option value="1">Khai vị</option>
-            <option value="2">Tráng miệng</option>
-            <option value="3">Nước uống</option>
+            <option selected value="0">Chọn loại món ăn</option>
+            <option value="0">Tất cả</option>
+            <% categories.forEach(function(cat){ %>
+            <option value="<%= cat.id %>"><%= cat.name %></option>
+            <% }) %>
         </select>
         <div class="d-grid gap-2">
             <button class="btn btn-primary btnFilter" type="submit">Submit</button>
