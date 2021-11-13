@@ -6,32 +6,40 @@ const connection = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
 });
 
 // View home
 exports.viewHome = (req, res) => {
-    connection.query('SELECT * FROM food', (err, rows) => {
+    connection.query("SELECT * FROM food", (err, rows) => {
         // When done with the connection, release it
         if (!err) {
-            res.render('home', {
+            res.render("home", {
                 rows: rows,
-                title: 'Home'
+                title: "Home",
             });
         } else {
             console.log(err);
         }
-
     });
+};
 
-
-}
+exports.viewLogin = (req, res) => {
+    res.render("login", {
+        title: "Login Page",
+    });
+};
 
 function getCategory(num) {
-    if (num == 0) { return 'Món chính'; }
-    else if (num == 1) { return 'Món khai vị'; }
-    else if (num == 2) { return 'Tráng miệng'; }
-    else { return 'Nước uống' }
+    if (num == 0) {
+        return "Món chính";
+    } else if (num == 1) {
+        return "Món khai vị";
+    } else if (num == 2) {
+        return "Tráng miệng";
+    } else {
+        return "Nước uống";
+    }
 }
 
 // GET food detail
@@ -54,11 +62,8 @@ exports.viewDetail = (req, res) => {
         } else {
             console.log(err);
         }
-
-    });
-
+    })
 };
-
 
 // View menu
 exports.viewMenu = (req, res) => {
@@ -83,9 +88,8 @@ exports.viewMenu = (req, res) => {
         } else {
             console.log(err);
         }
-
     });
-}
+};
 
 // View menu by Filter
 exports.viewMenuFilter = (req, res) => {
@@ -112,7 +116,6 @@ exports.viewMenuFilter = (req, res) => {
             } else {
                 console.log(error);
             }
-
         });
     }
     else {
@@ -162,20 +165,19 @@ exports.viewMenuSearch = (req, res) => {
         } else {
             console.log(error);
         }
-
     });
-}
+};
 
 // View about and review
 exports.viewAbout = (req, res) => {
-    res.render('about', {
-        title: 'About Us'
+    res.render("about", {
+        title: "About Us",
     });
-}
+};
 
 // View order
 exports.viewOrder = (req, res) => {
-    res.render('order', {
-        title: 'Order'
+    res.render("order", {
+        title: "Order",
     });
-}
+};

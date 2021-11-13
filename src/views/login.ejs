@@ -1,0 +1,36 @@
+<%- include ('layouts/header') -%>
+
+
+    <!-- order section starts  -->
+
+    <section style="margin-top: 4.5em;" class="login" id="login">
+
+        <h3 class="sub-heading"> Login </h3>
+        <h1 class="heading"> Input your information </h1>
+
+        <form action="/" method="post">
+
+            <div class="inputBox">
+                <div class="input">
+                    <span>phonenumber</span>
+                    <input type="text" placeholder="enter your phonenumber" name="phonenumber">
+                </div>
+
+            </div>
+            <div class="inputBox">
+                <div class="input">
+                    <span>your password</span>
+                    <input type="password" placeholder="********" name="password">
+                </div>
+            </div>
+
+            <input type="submit" value="Login" class="btn">
+
+
+
+        </form>
+
+    </section>
+
+    <!-- order section ends -->
+    <%- include ('layouts/footer') -%>
