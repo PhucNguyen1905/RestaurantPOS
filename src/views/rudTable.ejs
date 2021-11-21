@@ -1,0 +1,98 @@
+<%- include ('layouts/header') -%>
+
+<!-- table section starts  -->
+<section style="margin-top: 4.5em;" class="order" id="order">
+
+    <h3 class="sub-heading"> reserve table now </h3>
+    <h1 class="heading"> free and fast </h1>
+    <a href="/table" class="link-primary" style="font-size: 17px;">Reserve New Table</a>
+    <br/>
+    <form class= "needs-validation" method="POST" action="/table/rud" novalidate >
+        <div class="inputBox">
+            <input type="search" class="form-control" placeholder="Enter your phone" aria-label="Search" name="searchPhone">
+        </div>
+    </form>
+    <br/>
+    <% if (alert) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= alert %> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %> 
+    <% if (status == 'search') { %>
+        <% if (reserveInfors.length > 0) { %>
+            <form class= "needs-validation" method="POST" action="/table/updateNamePhone/<%= reserveInfors[0].customerPhone %>" novalidate >
+                <div class="inputBox">
+                    <div class="input">
+                        <span>your name</span>
+                        <textarea id="" style="height: 50px" name="customerName" ><%= reserveInfors[0].customerName %></textarea>
+                    </div>
+                    <div class="input">
+                        <span>your phone number</span>
+                        <input type="number" name="customerPhone" value=<%= reserveInfors[0].customerPhone %>>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2"><input type="submit" value="Update" class="btn"></div>
+                    <div class="col-6">
+                        <a class="btn btn-primary" href="/table/delete/<%= reserveInfors[0].customerPhone %>" role="button">Delete All Table</a>
+                    </div>
+                </div>
+            </form>
+            <br/>
+            <% var table_count = 1 %> 
+            <% reserveInfors.forEach(function(reserveInfor) { %>
+                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.code %>" novalidate >
+                    <h4>Table <%= table_count %> </h4>
+                    <% table_count += 1 %> 
+                    <div class="inputBox">
+                        <div class="input">
+                            <span>Choose Number People</span>
+                            <select id="inputState" class="form-select" style="height: 50%;" name="numberPeople">
+                                <% for ( var i = 1; i <= 6; i++ ) {
+                                    var selected = ( reserveInfor.numberPeople == i ) ? "selected" : "";
+                                    %><option <%=selected %>><%=i%></option><%
+                                } %>
+                            </select>
+                        </div>
+                        <div class="input">
+                            <span>date and time</span>
+                            <input type="datetime-local" name="time" value=''>
+                        </div>
+                    </div>
+                    <div class="inputBox">
+                        <div class="input">
+                            <span>your message</span>
+                            <textarea id="" style="height: 50px" name="message" ><%= reserveInfor.message %></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><input type="submit" value="Update" class="btn"></div>
+                        <div class="col-6">
+                            <a class="btn btn-primary" href="/table/delete1/<%= reserveInfors[0].code %>" role="button">Delete</a>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+            <% }); %>
+        <% } else { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Your phone number has not been used to reserve a table. !!!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+        <% } %>
+    <% } %>
+
+   
+</section>
+
+<script>
+    function convertDate(date1) {
+        var d = date1; 
+       d.toISOString().split('T')[0]+' '+d.toTimeString().split(' ')[0];
+       return date1;
+    }
+</script>
+
+<!-- order section ends -->
+<%- include ('layouts/footer') -%>

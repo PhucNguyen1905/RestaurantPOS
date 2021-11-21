@@ -1,5 +1,5 @@
-CREATE DATABASE `shiba-pos`;
-USE `shiba-pos`;
+CREATE DATABASE `restaurantpos`;
+USE `restaurantpos`;
 CREATE TABLE `food` (
 	`id` int NOT NULL AUTO_INCREMENT, 
 	`name` varchar(40),
@@ -34,11 +34,7 @@ INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh ch
 INSERT INTO food(name,price,categories,brief,description,image) VALUES('Bánh cuộn tinh than tre',45000,2,'hương vị đặc biệt, mà nó còn đem lại nhiều lợi ích tốt đẹp cho sức khỏe','Bánh cuộn vốn nổi tiếng bởi sự mềm, xốp mà không loại bánh nào sánh được, sẽ càng thêm ngon khi kết với tinh than tre thanh nhẹ nữa. ', 'tinh-than-tre.jpg');
 
 
-
-
-
-
--- Create customer
+-- Create customer 
 
 CREATE TABLE `Customer` (
 	`id` int NOT NULL AUTO_INCREMENT, 
@@ -95,3 +91,15 @@ INSERT INTO `Category` (`id`, `name`) VALUES ('1', 'Món chính');
 INSERT INTO `Category` (`id`, `name`) VALUES ('2', 'Món khai vị');
 INSERT INTO `Category` (`id`, `name`) VALUES ('3', 'Tráng miệng');
 INSERT INTO `Category` (`id`, `name`) VALUES ('4', 'Nước uống');
+
+DROP TABLE IF EXISTS `Reserve`;
+CREATE TABLE `Reserve` (
+	`customerName` text(100) NOT NULL,
+	`customerPhone` int NOT NULL,
+	`numberPeople` int DEFAULT 1,
+	`message` text(400),
+	`time` datetime ,
+	`createAt` datetime DEFAULT CURRENT_TIMESTAMP,
+	`code` varchar(6) NOT NULL,
+	PRIMARY KEY (code, createAt)
+);

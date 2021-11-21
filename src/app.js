@@ -56,9 +56,11 @@ app.get('*', (req, res, next) => {
 const userRoute = require('./routes/user');
 const cartRoute = require('./routes/cart');
 const adminRoute = require('./routes/admin');
+const tableRoute = require('./routes/table');
 
 app.use('/admin', adminRoute);
 app.use('/cart', cartRoute);
+app.use('/table', tableRoute);
 app.use('/', userRoute);
 
 

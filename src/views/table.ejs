@@ -1,0 +1,80 @@
+<%- include ('layouts/header') -%>
+
+
+<!-- table section starts  -->
+<section style="margin-top: 4.5em;" class="order" id="order">
+
+    <h3 class="sub-heading"> reserve table now </h3>
+    <h1 class="heading"> free and fast </h1>
+    <a href="/table/rud" class="link-primary" style="font-size: 17px;">View reserved table</a>
+    
+    <form class= "needs-validation" method="POST" action="/table" novalidate>
+        <% if (alert) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <%= alert %> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+        <% } %> 
+        <div class="inputBox">
+            <div class="input">
+                <span>your name</span>
+                <% if (status == 'extra') { %>
+                    <textarea id="" style="height: 50px" name="customerName" ><%= reserveInfor.customerName %></textarea>
+                <% } else { %>
+                <input type="text" placeholder="enter your name" name="customerName">
+                <%}%>
+            </div>
+            <div class="input">
+                <span>your phone number</span>
+                <% if (status == 'extra') { %>
+                    <input type="number" name="customerPhone" value=<%= reserveInfor.customerPhone %>>
+                <% } else { %>
+                    <input type="number" placeholder="enter your phone number" name="customerPhone">
+                <%}%>
+            </div>
+            
+        </div>
+        <div class="inputBox">
+            <div class="input">
+                <span>Choose Number People</span>
+                <% if (status == 'extra') { %>
+                    <select id="inputState" class="form-select" style="height: 50%;" name="numberPeople">
+                        <% for ( var i = 1; i <= 6; i++ ) {
+                            var selected = ( reserveInfor.numberPeople == i ) ? "selected" : "";
+                            %><option <%=selected %>><%=i%></option><%
+                        } %>
+                    </select>
+                <% } else { %>
+                    <select id="inputState" class="form-select" style="height: 50%;" name="numberPeople">
+                        <option selected >1</option>
+                        <% for ( var i = 2; i <= 6; i++ ) {
+                            %><option ><%=i%></option><%
+                        } %>
+                    </select>
+                <%}%>
+            </div>
+            <div class="input">
+                <span>date and time</span>
+                <% if (status == 'extra') { %>
+                    <input type="datetime-local" value='' name="time" >
+                <% } else { %>
+                    <input type="datetime-local" name="time">
+                <%}%>
+            </div>
+        </div>
+        <div class="inputBox">
+            <div class="input">
+                <span>your message</span>
+                <% if (status == 'extra') { %>
+                    <textarea id="" style="height: 50px" name="message" ><%= reserveInfor.message %></textarea>
+                <% } else { %>
+                    <textarea placeholder="enter your message" id="" style="height: 50px" name="message" ></textarea>
+                <%}%>
+            </div>
+        </div>
+        <input type="submit" value="reserve" class="btn">
+    </form>
+</section>
+
+<!-- order section ends -->
+<%- include ('layouts/footer') -%>
