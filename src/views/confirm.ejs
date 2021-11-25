@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Add bootstrap for category -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- order section starts  -->
+
+<section class="order" id="order">
+    <form action="#" method="POST">
+        <div class="inputBox">
+            <div class="input">
+                <span for="qty">Select Table: </span>
+                <input id="qty" type="number" name="table" min="1" placeholder="Food quantity">
+            </div>
+            <div class="input">
+                <span for="qty">Select Delivery Type:</span>
+                <select name="delivery">
+                    <option value="out">Take-away</option>
+                    <option value="in">Eat in</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn">Add to cart</button>
+    </form>
+    </section>
+
+</body>
+</html>
