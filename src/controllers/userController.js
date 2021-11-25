@@ -38,7 +38,7 @@ function getCategory(num) {
 exports.viewDetail = (req, res) => {
     connection.query("SELECT * FROM food WHERE id = ?", [req.params.id], (error, dishes) => {
         if (!error) {
-            connection.query('SELECT * FROM category WHERE id = ?', [dishes[0].categories], (err, categories) => {
+            connection.query('SELECT * FROM Category WHERE id = ?', [dishes[0].categories], (err, categories) => {
                 // When done with the connection, release it
                 if (!err) {
                     res.render('food_detail', {
@@ -66,7 +66,7 @@ exports.viewMenu = (req, res) => {
     connection.query('SELECT * FROM food WHERE status = ?', [status], (error, rows) => {
         // When done with the connection, release it
         if (!error) {
-            connection.query('SELECT * FROM category', (err, categories) => {
+            connection.query('SELECT * FROM Category', (err, categories) => {
                 // When done with the connection, release it
                 if (!err) {
                     res.render('menu', {
@@ -94,7 +94,7 @@ exports.viewMenuFilter = (req, res) => {
     if (cat == 0) {
         connection.query('SELECT * FROM food WHERE status = ?', [status], (error, rows) => {
             if (!error) {
-                connection.query('SELECT * FROM category', (err, categories) => {
+                connection.query('SELECT * FROM Category', (err, categories) => {
                     // When done with the connection, release it
                     if (!err) {
                         res.render('filter_menu', {
@@ -118,7 +118,7 @@ exports.viewMenuFilter = (req, res) => {
     else {
         connection.query('SELECT * FROM food WHERE status = ? AND categories = ?', [status, cat], (error, rows) => {
             if (!error) {
-                connection.query('SELECT * FROM category', (err, categories) => {
+                connection.query('SELECT * FROM Category', (err, categories) => {
                     // When done with the connection, release it
                     if (!err) {
                         res.render('filter_menu', {

@@ -7,27 +7,27 @@
     <h3 class="sub-heading"> our menu </h3>
     <h1 class="heading"> today's speciality </h1>
     <form action="/menu/filter" method="POST">
-        <select name="category" class="form-select form-select-lg mb-3" style="font-size: 2rem;">
+        <select onchange="this.form.submit()" name="category" class="form-select form-select-lg mb-3" style="font-size: 2rem;">
             <% let i = 0; %>
             <option value="<%= i %>" <% if (catID == i) { %> selected="selected" <% } %>>Tất cả</option>
             <% categories.forEach(function(cat){ %>
             <option value="<%= cat.id %>" <% if(cat.id == catID){%> selected="selected" <%} %>><%= cat.name %></option>
             <% }) %>
         </select>
-        <div class="d-grid gap-2">
-            <button class="btn btn-primary btnFilter" type="submit">Submit</button>
-        </div>
-
     </form>
     <div class="box-container">
         <% rows.forEach(function(dish){%>
         <div class="box">
             <div class="image">
+                <a href="/menu/<%= dish.id %>">
                 <img src="https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/<%= dish.image %>"
                     alt="">
-                <a href="/menu/<%= dish.id %>" class="fas fa-eye"></a>
+                </a>
             </div>
             <div class="content">
+                <a href="/menu/<%= dish.id %>">
+                    <h3><%= dish.name %> </h3>
+                </a>
                 <div class="stars">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -35,15 +35,13 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <h3><%= dish.name %> </h3>
                 <p><%= dish.brief %></p>
-                <a href="/cart/add/<%= dish.id %>" class="btn">add</a>
+                <!-- <a href="/cart/add/<%= dish.id %>" class="btn">add</a> -->
                 <span class="price"><%= dish.price %> VND</span>
             </div>
         </div>
 
         <%}) %>
-
 
     </div>
 
