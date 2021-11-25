@@ -8,7 +8,7 @@ route.post("/", tableController.createReserve);
 
 route.get("/rud", tableController.rudTable);
 route.post("/rud", tableController.viewCodeSearch);
-route.post("/update/:code", tableController.updateTable);
+route.post("/update/:code/:phone", tableController.updateTable);
 route.post("/updateNamePhone/:phone", tableController.updateNamePhone);
 
 route.get("/delete/:phone", tableController.deleteAllTable);

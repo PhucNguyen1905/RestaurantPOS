@@ -1,5 +1,17 @@
 <%- include ('layouts/header') -%>
 
+<% 
+    timeFunc = function(t) {
+        var date = new Date(t);
+        date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + 'T' + 
+            ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
+            ('00' + date.getUTCMinutes()).slice(-2);
+        return(date);
+    }
+%> 
+
 <!-- table section starts  -->
 <section style="margin-top: 4.5em;" class="order" id="order">
 
@@ -42,7 +54,7 @@
             <br/>
             <% var table_count = 1 %> 
             <% reserveInfors.forEach(function(reserveInfor) { %>
-                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.code %>" novalidate >
+                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.code %>/<%= reserveInfor.phone %>" novalidate >
                     <h4>Table <%= table_count %> </h4>
                     <% table_count += 1 %> 
                     <div class="inputBox">
@@ -57,7 +69,7 @@
                         </div>
                         <div class="input">
                             <span>date and time</span>
-                            <input type="datetime-local" name="time" value=''>
+                            <input type="datetime-local" name="time" value="<%= timeFunc(reserveInfor.time) %>">
                         </div>
                     </div>
                     <div class="inputBox">
@@ -85,14 +97,6 @@
 
    
 </section>
-
-<script>
-    function convertDate(date1) {
-        var d = date1; 
-       d.toISOString().split('T')[0]+' '+d.toTimeString().split(' ')[0];
-       return date1;
-    }
-</script>
 
 <!-- order section ends -->
 <%- include ('layouts/footer') -%>

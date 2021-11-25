@@ -26,6 +26,7 @@ exports.createReserve = (req, res) => {
         if (!err) {
             connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY createAt DESC',[customerPhone], (err, reserveInfors) => {
                 if (!err) {
+                    // console.log(reserveInfors[0].time);
                     res.render('table', {
                         title: 'Table',
                         status: 'extra',
@@ -83,33 +84,24 @@ exports.viewCodeSearch = (req, res) => {
 
 exports.updateTable = (req, res) => {
     const {numberPeople, message, time} = req.body;
-    connection.query('SELECT customerPhone FROM Reserve WHERE code=? LIMIT 1',[req.params.code], (err, customerPhones) => {
-        if (!err) {
-            connection.query('UPDATE Reserve SET numberPeople=?,message=?, time=? WHERE code=?',[numberPeople,message,time,req.params.code], (err) => {
-                if (!err) {
-                    connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',[customerPhones[0].customerPhone], (err, reserveInfors) => {
-                        if (!err) {
-                            res.render('rudTable', {
-                                title: 'rudTable',
-                                status: 'search',
-                                reserveInfors: reserveInfors,
-                                alert: 'Update Successfully'
-                            });
-                        } else {
-                            console.log(err);
-                        }
-                    });
-                } else {
-                    console.log(err);
-                }
-        
-            });
-
-        } else {
-            console.log(err);
-        }
-    });
-    
+    connection.query('UPDATE Reserve SET numberPeople=?,message=?, time=? WHERE code=?',[numberPeople,message,time,req.params.code], (err) => {
+            if (!err) {
+                connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',req.params.phone, (err, reserveInfors) => {
+                    if (!err) {
+                        res.render('rudTable', {
+                            title: 'rudTable',
+                            status: 'search',
+                            reserveInfors: reserveInfors,
+                            alert: 'Update Successfully'
+                        });
+                    } else {
+                        console.log(err);
+                    }
+                });
+            } else {
+                console.log(err);
+            }
+    });    
 }
 
 exports.updateNamePhone = (req, res) => {

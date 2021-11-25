@@ -1,5 +1,15 @@
 <%- include ('layouts/header') -%>
-
+<% 
+    timeFunc = function(t) {
+        var date = new Date(t);
+        date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + 'T' + 
+            ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
+            ('00' + date.getUTCMinutes()).slice(-2);
+        return(date);
+    }
+%> 
 
 <!-- table section starts  -->
 <section style="margin-top: 4.5em;" class="order" id="order">
@@ -56,7 +66,7 @@
             <div class="input">
                 <span>date and time</span>
                 <% if (status == 'extra') { %>
-                    <input type="datetime-local" value='' name="time" >
+                    <input type="datetime-local" value="<%= timeFunc(reserveInfor.time) %>" name="time" >
                 <% } else { %>
                     <input type="datetime-local" name="time">
                 <%}%>
@@ -75,6 +85,7 @@
         <input type="submit" value="reserve" class="btn">
     </form>
 </section>
+
 
 <!-- order section ends -->
 <%- include ('layouts/footer') -%>
