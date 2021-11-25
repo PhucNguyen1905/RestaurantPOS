@@ -33,7 +33,12 @@
                     <span>4,5</span>
                 </div>
             </div>
+            <% if(user==undefined){%>
+            <a href="/login" class="btn">Login to order</a>
+            <%}else{%>
             <a href="/cart/add/<%= dish.id %>" class="btn">Add to cart</a>
+            <%} %>
+
             <a href="/menu" class="btn">Back to menu</a>
         </div>
 

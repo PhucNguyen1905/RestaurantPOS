@@ -55,10 +55,14 @@ app.get('*', (req, res, next) => {
 //Router
 const userRoute = require('./routes/user');
 const cartRoute = require('./routes/cart');
+const paymentRoute = require('./routes/payment');
 const adminRoute = require('./routes/admin');
+const cashierRoute = require('./routes/cashier');
 
+app.use('/cashier', cashierRoute);
 app.use('/admin', adminRoute);
 app.use('/cart', cartRoute);
+app.use('/pay', paymentRoute);
 app.use('/', userRoute);
 
 

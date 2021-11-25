@@ -1,0 +1,82 @@
+<%- include ('../layouts/cart_header') -%>
+<style>
+    body {
+        background: #eee
+    }
+
+    #regForm {
+        background-color: #ffffff;
+        margin: 0px auto;
+        font-family: Raleway;
+        padding: 40px;
+        border-radius: 10px
+    }
+
+    h1 {
+        text-align: center
+    }
+
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa
+    }
+
+    input.invalid {
+        background-color: #ffdddd
+    }
+
+
+    button {
+        background-color: #4CAF50;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 17px;
+        font-family: Raleway;
+        cursor: pointer
+    }
+
+    button:hover {
+        opacity: 0.8
+    }
+
+    #prevBtn {
+        background-color: #bbbbbb
+    }
+
+
+
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none
+    }
+</style>
+
+<div class="container" style="margin-top: 10rem;">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <form id="regForm">
+                <div class="thanks-message text-center mt-5">
+                    <img src="https://i.imgur.com/O18mJ1K.png" width="100" class="mb-4">
+                    <h3>Đặt hàng thành công!</h3>
+                    <h3>Nhà hàng xin cảm ơn bạn!</h3>
+                    <span>Nhân viên sẽ chuẩn bị món ăn và phục vụ bạn!</span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ('../layouts/footer') -%>

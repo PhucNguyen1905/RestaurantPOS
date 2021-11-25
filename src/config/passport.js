@@ -13,14 +13,14 @@ const connection = mysql.createPool({
 
 module.exports = function (passport) {
     passport.use(new LocalStrategy(function (username, password, done) {
-        connection.query('SELECT * FROM staff WHERE email = ?', [username], (err, staffs) => {
+        connection.query('SELECT * FROM user WHERE email = ?', [username], (err, users) => {
             if (err) throw err;
-            if (staffs.length == 0)
+            if (users.length == 0)
                 return done(null, false, { message: 'No user found!' });
-            bcrypt.compare(password, staffs[0].password, function (err, isMatch) {
+            bcrypt.compare(password, users[0].password, function (err, isMatch) {
                 if (err) throw err;
-                if (isMatch) {
-                    return done(null, staffs[0])
+                if (password == users[0].password) {
+                    return done(null, users[0])
                 } else {
                     return done(null, false, { message: 'Wrong password' });
                 }
@@ -32,8 +32,8 @@ module.exports = function (passport) {
         done(null, user.id);
     })
     passport.deserializeUser(function (id, done) {
-        connection.query('SELECT * FROM staff WHERE id = ?', [id], (err, staffs) => {
-            done(err, staffs[0]);
+        connection.query('SELECT * FROM user WHERE id = ?', [id], (err, users) => {
+            done(err, users[0]);
         })
     })
 

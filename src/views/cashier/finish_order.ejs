@@ -1,0 +1,74 @@
+<%- include ('../layouts/cashier_header') -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
+                <strong>Thành công!</strong> <%= messages %>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h1 class="mt-4">Đơn hàng đã hoàn thành</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/cashier">Dashboard</a></li>
+                <li class="breadcrumb-item active">Đã hoàn thành</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên khách hàng</th>
+                                <th>SĐT</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Hình thức</th>
+                                <th>Thanh toán</th>
+                                <th>Tổng thu</th>
+                                <th>Xem chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên khách hàng</th>
+                                <th>SĐT</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Hình thức</th>
+                                <th>Thanh toán</th>
+                                <th>Tổng thu</th>
+                                <th>Xem chi tiết</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% let i = 1; %>
+                            <% orders.forEach(function(o){%>
+                            <tr>
+                                <td><%= i %></td>
+                                <td><%= o.fullname %></td>
+                                <td><%= o.phone %></td>
+                                <td><%= convertTime(o.created)%> | <%= convertDate(o.created) %></td>
+                                <% if(o.takeorhere == 'here'){%>
+                                <td>Tại chỗ - Bàn <%= o.table_num %></td>
+                                <%}else{%>
+                                <td>Mang về</td>
+                                <% }%>
+                                <% if(o.method == 'Tiền mặt'){%>
+                                <td>Tiền mặt</td>
+                                <%}else{%>
+                                <td>Paypal</td>
+                                <% }%>
+                                <td><%= o.total_money %> VND</td>
+                                <td><a href="/cashier/detail/<%= o.id %>" class=" link-info"
+                                        style="text-decoration: none;">Xem chi tiết</a></td>
+                            </tr>
+                            <% i+=1; %>
+                            <%}) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include ('../layouts/admin_footer') -%>

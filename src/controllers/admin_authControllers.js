@@ -19,25 +19,19 @@ exports.viewRegister = (req, res) => {
 }
 
 exports.register = (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
     let fname = req.body.fname;
     let lname = req.body.lname;
-    let username = req.body.username;
     let phone = req.body.phone;
-    let password = req.body.password;
-    let role = parseInt(req.body.role);
+    let address = req.body.address;
+    let role = req.body.role;
 
-    bcrypt.genSalt(10, function (err, salt) {
-        bcrypt.hash(password, salt, function (err, hash) {
-            if (err)
-                console.log(err);
-
-            password = hash;
-            connection.query('INSERT INTO staff (fname, lname, email,password, phone, role_id) VALUES(?,?,?,?,?,?)', [fname, lname, username, password, phone, role], (err, rows) => {
-                if (err) throw err;
-                res.redirect('/admin/login');
-            })
-        });
-    });
+    let sql = 'INSERT INTO user (fname, lname, email,password, phone,address, role_id) VALUES(?,?,?,?,?,?,?)'
+    connection.query(sql, [fname, lname, username, password, phone, address, role], (err, rows) => {
+        if (err) throw err;
+        res.redirect('/admin/login');
+    })
 
 
 

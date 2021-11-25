@@ -10,9 +10,11 @@ const connection = mysql.createPool({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
 });
+let USER;
 
 // View cart
 exports.viewCart = (req, res) => {
+    USER = res.locals.user;
     if (req.session.cart && req.session.cart.length == 0 || typeof req.session.cart == "undefined") {
         delete req.session.cart;
         res.render('checkout', {

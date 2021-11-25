@@ -1,0 +1,129 @@
+<%- include ('../layouts/cashier_header') -%>
+<style>
+    h2,
+    h3,
+    h4 {
+        font-weight: 0.5px;
+    }
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
+                <strong>Success!</strong> <%= messages %>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h1 class="mt-4">Chi tiết đơn hàng</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/cashier">Dashboard</a></li>
+                <li class="breadcrumb-item active">Chi tiết</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    <a class="btn btn-success" href="/cashier">Quay về danh sách</a>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="mt-4" style="margin-left: 1rem;">Khách hàng: <%= order.fullname %></h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="mt-4" style="margin-left: 1rem;">Ngày đặt: <%= convertTime(order.created)%>
+                            <%= convertDate(order.created) %></h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 style="margin-left: 1rem;">Thanh toán: <% if(order.method == 'Tiền mặt'){%>
+                            Tiền mặt
+                            <%}else{%>
+                            Paypal
+                            <% }%> </h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 style="margin-left: 1rem;">Hình thức: <% if(order.takeorhere == 'here'){%>
+                            Tại chỗ - Bàn <%= order.table_num %>
+                            <%}else{%>
+                            Mang về
+                            <% }%> </h4>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <td>STT</td>
+                                <td>Tên món</td>
+                                <td>Số lượng</td>
+                                <td>Tổng phụ</td>
+                                <td>Ghi chú</td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td>STT</td>
+                                <td>Tên món</td>
+                                <td>Số lượng</td>
+                                <td>Tổng phụ</td>
+                                <td>Ghi chú</td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% let idx = 1; %>
+                            <% items.forEach(function(i){%>
+                            <tr>
+                                <td><%= idx %></td>
+                                <td><%= i.food_name %></td>
+                                <td><%= i.qty %></td>
+                                <td><%= i.total_money %></td>
+                                <td><%= i.note %></td>
+                                <% idx++; %>
+                            </tr>
+
+                            <%}) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 style="margin-left: 1rem;">Tổng tiền: <%= order.total_money %> VND</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/cashier/complete-order/<%= order.id %>" class="btn btn-primary"
+                            style="width: 8rem">Hoàn thành</a>
+                        <a data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger"
+                            style="width: 8rem">Xóa bỏ</a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Xóa bỏ đơn</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn muốn xóa đơn đặt hàng này?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <a style="text-decoration: none; color: white;"
+                                                href="/cashier/delete-order/<%= order.id %>">Xóa</a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <%- include ('../layouts/admin_footer') -%>

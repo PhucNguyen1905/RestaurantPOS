@@ -9,14 +9,17 @@ const connection = mysql.createPool({
     database: process.env.DB_NAME
 });
 
+let USER;
 // View home
 exports.viewHome = (req, res) => {
+    USER = res.locals.user;
     connection.query('SELECT * FROM food', (err, rows) => {
         // When done with the connection, release it
         if (!err) {
             res.render('home', {
                 rows: rows,
-                title: 'Home'
+                title: 'Home',
+                user: USER
             });
         } else {
             console.log(err);
@@ -25,13 +28,6 @@ exports.viewHome = (req, res) => {
     });
 
 
-}
-
-function getCategory(num) {
-    if (num == 0) { return 'Món chính'; }
-    else if (num == 1) { return 'Món khai vị'; }
-    else if (num == 2) { return 'Tráng miệng'; }
-    else { return 'Nước uống' }
 }
 
 // GET food detail
@@ -44,7 +40,8 @@ exports.viewDetail = (req, res) => {
                     res.render('food_detail', {
                         title: dishes[0].name,
                         category: categories[0].name,
-                        dish: dishes[0]
+                        dish: dishes[0],
+                        user: USER
                     })
                 } else {
                     console.log(err);
@@ -72,7 +69,8 @@ exports.viewMenu = (req, res) => {
                     res.render('menu', {
                         rows: rows,
                         categories: categories,
-                        title: 'Menu'
+                        title: 'Menu',
+                        user: USER
                     });
                 } else {
                     console.log(err);
@@ -101,7 +99,8 @@ exports.viewMenuFilter = (req, res) => {
                             rows: rows,
                             title: 'Tất cả',
                             catID: cat,
-                            categories: categories
+                            categories: categories,
+                            user: USER
                         });
                     } else {
                         console.log(err);
@@ -125,7 +124,8 @@ exports.viewMenuFilter = (req, res) => {
                             rows: rows,
                             title: 'Filter Menu',
                             catID: cat,
-                            categories: categories
+                            categories: categories,
+                            user: USER
                         });
                     } else {
                         console.log(err);
@@ -152,7 +152,8 @@ exports.viewMenuSearch = (req, res) => {
                     res.render('menu', {
                         rows: rows,
                         categories: categories,
-                        title: 'Menu'
+                        title: 'Menu',
+                        user: USER
                     });
                 } else {
                     console.log(err);
@@ -169,13 +170,15 @@ exports.viewMenuSearch = (req, res) => {
 // View about and review
 exports.viewAbout = (req, res) => {
     res.render('about', {
-        title: 'About Us'
+        title: 'About Us',
+        user: USER
     });
 }
 
 // View order
 exports.viewOrder = (req, res) => {
     res.render('order', {
-        title: 'Order'
+        title: 'Order',
+        user: USER
     });
 }

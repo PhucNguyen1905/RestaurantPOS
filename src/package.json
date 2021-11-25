@@ -19,7 +19,8 @@
     "express-validator": "^6.13.0",
     "mysql": "^2.18.1",
     "passport": "^0.5.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "paypal-rest-sdk": "^1.8.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
