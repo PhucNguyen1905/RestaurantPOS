@@ -94,12 +94,14 @@ INSERT INTO `Category` (`id`, `name`) VALUES ('4', 'Nước uống');
 
 DROP TABLE IF EXISTS `Reserve`;
 CREATE TABLE `Reserve` (
+	`id` int NOT NULL AUTO_INCREMENT,
 	`customerName` text(100) NOT NULL,
 	`customerPhone` int NOT NULL,
 	`numberPeople` int DEFAULT 1,
 	`message` text(400),
-	`time` datetime ,
+	`time` datetime,
+	`status` ENUM('pending','accepted','not accept','canceled') DEFAULT 'pending',
+	`managerFeedback` text(100) DEFAULT '', 
 	`createAt` datetime DEFAULT CURRENT_TIMESTAMP,
-	`code` varchar(6) NOT NULL,
-	PRIMARY KEY (code, createAt)
+	PRIMARY KEY (id)
 );

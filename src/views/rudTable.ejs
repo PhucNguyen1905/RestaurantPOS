@@ -25,15 +25,16 @@
         </div>
     </form>
     <br/>
-    <% if (alert) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <%= alert %> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <% } %> 
+    
     <% if (status == 'search') { %>
         <% if (reserveInfors.length > 0) { %>
             <form class= "needs-validation" method="POST" action="/table/updateNamePhone/<%= reserveInfors[0].customerPhone %>" novalidate >
+                <% if (alert) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= alert %> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %> 
                 <div class="inputBox">
                     <div class="input">
                         <span>your name</span>
@@ -47,16 +48,18 @@
                 <div class="row">
                     <div class="col-2"><input type="submit" value="Update" class="btn"></div>
                     <div class="col-6">
-                        <a class="btn btn-primary" href="/table/delete/<%= reserveInfors[0].customerPhone %>" role="button">Delete All Table</a>
+                        <a class="btn btn-primary" href="/table/deleteAll/<%= reserveInfors[0].customerPhone %>" role="button">Delete All Table</a>
                     </div>
                 </div>
             </form>
             <br/>
             <% var table_count = 1 %> 
             <% reserveInfors.forEach(function(reserveInfor) { %>
-                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.code %>/<%= reserveInfor.phone %>" novalidate >
-                    <h4>Table <%= table_count %> </h4>
+                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.id %>/<%= reserveInfor.customerPhone %>" novalidate >
+                    <h2>Table <%= table_count %> </h2>
                     <% table_count += 1 %> 
+                    <h4>Table status: <%= reserveInfor.status %></h4>
+                    <h4>Manager Response: <%= reserveInfor.managerFeedback %> </h4>
                     <div class="inputBox">
                         <div class="input">
                             <span>Choose Number People</span>
@@ -81,7 +84,7 @@
                     <div class="row">
                         <div class="col-2"><input type="submit" value="Update" class="btn"></div>
                         <div class="col-6">
-                            <a class="btn btn-primary" href="/table/delete1/<%= reserveInfors[0].code %>/<%= reserveInfors[0].phone %>" role="button">Delete</a>
+                            <a class="btn btn-primary" href="/table/delete/<%= reserveInfors[0].id %>/<%= reserveInfors[0].customerPhone %>" role="button">Delete</a>
                         </div>
                     </div>
                 </form>

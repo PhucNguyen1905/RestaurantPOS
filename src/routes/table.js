@@ -7,11 +7,16 @@ route.get("/", tableController.viewTable);
 route.post("/", tableController.createReserve);
 
 route.get("/rud", tableController.rudTable);
-route.post("/rud", tableController.viewCodeSearch);
-route.post("/update/:code/:phone", tableController.updateTable);
+route.post("/rud", tableController.viewTableSearch);
+route.post("/update/:id/:phone", tableController.updateTable);
 route.post("/updateNamePhone/:phone", tableController.updateNamePhone);
 
-route.get("/delete/:phone", tableController.deleteAllTable);
-route.get("/delete1/:code/:phone", tableController.deleteTable);
+route.get("/deleteAll/:phone", tableController.deleteAllTable);
+route.get("/delete/:id/:phone", tableController.deleteTable);
+
+route.get("/manager", tableController.managerTable);
+route.get("/managerDelete/:id", tableController.managerDeleteTable);
+
+route.post("/managerResponse/:id", tableController.managerTableResponse);
 
 module.exports = route;

@@ -1,0 +1,171 @@
+<%- include ('../layouts/admin_header') -%>
+
+
+<% 
+    timeFunc = function(t) {
+        var date = new Date(t);
+        date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+            ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
+            ('00' + date.getUTCMinutes()).slice(-2);
+        return(date);
+    }
+%> 
+
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
+                <strong>Success!</strong> <%= messages %>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h1 class="mt-4">All Table</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                <li class="breadcrumb-item active">List of Table</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Customer Phone</th>
+                                <th>Number People</th>
+                                <th>Message</th>
+                                <th>Time</th>
+                                <th>Created At</th>
+                                <th>ID</th>
+                                <th>Status</th>
+                                <th>Manger Response</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>customerName</th>
+                                <th>customerPhone</th>
+                                <th>numberPeople</th>
+                                <th>message</th>
+                                <th>time</th>
+                                <th>createAt</th>
+                                <th>id</th>
+                                <th>status</th>
+                                <th>Manger Response</th>
+                                <th style="text-align: center;">Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% tables.forEach(function(table){%>
+                            <tr>
+                                <td><%= table.customerName %> </td>
+                                <td><%= table.customerPhone %> </td>
+                                <td><%= table.numberPeople %> </td>
+                                <td><%= table.message %> </td>
+                                <td><%= timeFunc(table.time) %> </td>
+                                <td><%= timeFunc(table.createAt) %> </td>
+                                <td><%= table.id %></td>
+                                <td><%= table.status %></td>
+                                <td><%= table.managerFeedback %></td>
+                                <td style="text-align: center;">
+                                    <a class=" link-info" style="text-decoration: none;"data-bs-toggle="modal"
+                                    data-bs-target="#responseModal<%= table.id %>">
+                                        <i class="fas fa-edit"></i>
+                                        Response
+                                    </a>
+                                    -
+                                    <a class="link-danger" style="text-decoration: none;" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal<%= table.id %>">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Delete
+                                    </a>
+                                    <!-- delete Modal -->
+                                    <div class="modal fade" id="deleteModal<%= table.id %>" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Table</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete <%=table.customerName%>'s table ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <a style="text-decoration: none; color: white;"
+                                                            href="/table/managerDelete/<%=table.id%>">Delete</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- update Modal -->
+                                    <div class="modal fade" id="responseModal<%= table.id %>" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Response Table</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Response table for <%=table.customerName%>?</h5>
+                                                    <br/>
+                                                    <form class= "needs-validation" method="POST" action="/table/managerResponse/<%= table.id %> " novalidate>
+                                                        <div class="inputBox">
+                                                            <textarea type="text" class="form-control" name="content" ><%= table.managerFeedback %></textarea>
+                                                        </div>
+                                                        <br/>
+                                                        <select id="inputState" class="form-select" style="height: 50%;" name="status">
+                                                            <% 
+                                                                var selected1 = ( table.status == 'pending' ) ? "selected" : "";
+                                                                var selected2 = ( table.status == 'accepted' ) ? "selected" : "";
+                                                                var selected3 = ( table.status == 'not accept' ) ? "selected" : "";
+                                                                var selected4 = ( table.status == 'canceled' ) ? "selected" : "";
+                                                                %><option <%= selected1 %> style="color: blue;"> pending </option><%
+                                                                %><option <%= selected2 %> style="color: green;"> accepted </option><%
+                                                                %><option <%= selected3 %> style="color: red;"> not accept </option><%
+                                                                %><option <%= selected4 %> style="color: red;"> canceled </option><%
+                                                            %>
+                                                        </select> 
+                                                        <hr/>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                    Close
+                                                                </button>
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="submit" value="OK" class="btn btn-primary">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <br/>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <%}) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- </div> -->
+<%- include ('../layouts/admin_footer') -%>

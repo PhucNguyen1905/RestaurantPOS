@@ -21,12 +21,10 @@ exports.viewTable = (req, res) => {
 
 exports.createReserve = (req, res) => {
     const {customerName, customerPhone, numberPeople, message, time} = req.body;
-    const randomStr = makeid(6);
-    connection.query('INSERT INTO reserve SET customerName=?,customerPhone=?, numberPeople=?,message=?, time=?, code=?',[customerName,customerPhone,numberPeople,message,time,randomStr], (err) => {
+    connection.query('INSERT INTO reserve SET customerName=?,customerPhone=?, numberPeople=?,message=?, time=?, id=?',[customerName,customerPhone,numberPeople,message,time,req.params.id], (err) => {
         if (!err) {
             connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY createAt DESC',[customerPhone], (err, reserveInfors) => {
                 if (!err) {
-                    // console.log(reserveInfors[0].time);
                     res.render('table', {
                         title: 'Table',
                         status: 'extra',
@@ -65,7 +63,7 @@ function makeid(length) {
    return result;
 }
 
-exports.viewCodeSearch = (req, res) => {
+exports.viewTableSearch = (req, res) => {
     const {searchPhone} = req.body;
     connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',[searchPhone], (err, reserveInfors) => {
         if (!err) {
@@ -84,7 +82,7 @@ exports.viewCodeSearch = (req, res) => {
 
 exports.updateTable = (req, res) => {
     const {numberPeople, message, time} = req.body;
-    connection.query('UPDATE Reserve SET numberPeople=?,message=?, time=? WHERE code=?',[numberPeople,message,time,req.params.code], (err) => {
+    connection.query('UPDATE Reserve SET numberPeople=?,message=?, time=? WHERE id=?',[numberPeople,message,time,req.params.id], (err) => {
             if (!err) {
                 connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',req.params.phone, (err, reserveInfors) => {
                     if (!err) {
@@ -143,7 +141,7 @@ exports.deleteAllTable = (req, res) => {
 }
 
 exports.deleteTable = (req, res) => {
-    connection.query('DELETE FROM Reserve WHERE code=?',[req.params.code], (err) => {
+    connection.query('DELETE FROM Reserve WHERE id=?',[req.params.id], (err) => {
         if (!err) {
             connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',[req.params.phone], (err, reserveInfors) => {
                 if (!err) {
@@ -163,3 +161,69 @@ exports.deleteTable = (req, res) => {
     });
     
 }
+
+exports.managerTable = (req, res) => {
+    connection.query('SELECT * FROM Reserve', (err, tables) => {
+        if (!err) {
+            res.render('admin/table', {
+                hidden: 'hidden',
+                messages: '',
+                title: 'Table manager',
+                tables: tables
+            })
+        } else {
+            console.log(err);
+        }
+
+    });
+    
+}
+
+// [GET] /managerDelete/:id
+exports.managerDeleteTable = (req, res) => {
+    connection.query('DELETE FROM Reserve WHERE id=?',[req.params.id], (err) => {
+        if (!err) {
+            connection.query('SELECT * FROM Reserve', (err, tables) => {
+                if (!err) {
+                    res.render('admin/table', {
+                        hidden: 'hidden',
+                        messages: '',
+                        title: 'Table manager',
+                        tables: tables
+                    })
+                } else {
+                    console.log(err);
+                }
+        
+            });
+        } else {
+            console.log(err);
+        }
+    });
+    
+}
+
+
+// [POST] /managerResponse/:id
+exports.managerTableResponse = (req, res) => {
+    connection.query('UPDATE Reserve SET managerFeedback=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
+        if (!err) {
+            connection.query('SELECT * FROM Reserve', (err, tables) => {
+                if (!err) {
+                    res.render('admin/table', {
+                        hidden: 'hidden',
+                        messages: '',
+                        title: 'Table manager',
+                        tables: tables
+                    })
+                } else {
+                    console.log(err);
+                }
+        
+            });
+        } else {
+            console.log(err);
+        }
+    });
+}
+    
