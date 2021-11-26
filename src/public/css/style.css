@@ -438,7 +438,7 @@ header .icons #menu-bars{
 
 .menu .box-container .box .content .price{
     color:var(--green);
-    margin-left: 1rem;
+    margin-left: 0;
     font-size: 2.5rem;
 }
 
@@ -517,6 +517,18 @@ header .icons #menu-bars{
 
 .order form .inputBox .input input,
 .order form .inputBox .input textarea{
+    background:#eee;
+    border-radius: .5rem;
+    padding:1rem;
+    font-size: 1.6rem;
+    color:var(--black);
+    text-transform: none;
+    margin-bottom: 1rem;
+    width:100%;
+}
+
+/* style select */
+.order form .inputBox .input select{
     background:#eee;
     border-radius: .5rem;
     padding:1rem;

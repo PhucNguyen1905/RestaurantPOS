@@ -4,7 +4,7 @@ const cartController = require("../controllers/cartController");
 
 // For view cart
 route.get('/', cartController.viewCart);
-route.get('/add/:id', cartController.addFood);
+route.post('/add/:id', cartController.addFood);
 route.get('/update/:id', cartController.updateCart);
 route.get('/clear', cartController.clearCart);
 

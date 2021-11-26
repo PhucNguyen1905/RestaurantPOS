@@ -36,7 +36,7 @@ exports.viewCart = (req, res) => {
 
 // Add food to cart
 exports.addFood = (req, res) => {
-    let id = req.params.id;
+    let id = req.body.id;
     let baseURLImg = 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/';
     connection.query('SELECT * FROM food WHERE id = ?', [id], (err, dishes) => {
         if (!err) {
@@ -45,7 +45,8 @@ exports.addFood = (req, res) => {
                 req.session.cart = [];
                 req.session.cart.push({
                     name: food.name,
-                    qty: 1,
+                    qty: req.body.quantity,
+                    note: req.body.note,
                     price: parseInt(food.price),
                     image: baseURLImg + food.image,
                     category: food.categories,
@@ -65,6 +66,7 @@ exports.addFood = (req, res) => {
                     req.session.cart.push({
                         name: food.name,
                         qty: 1,
+                        note: req.body.note,
                         price: parseInt(food.price),
                         image: baseURLImg + food.image,
                         category: food.categories,

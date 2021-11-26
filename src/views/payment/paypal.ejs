@@ -174,7 +174,8 @@
                             <% cart.forEach(function(c){%>
                             <tr>
                                 <td>
-                                    <span class="text-inverse"><%= c.name %></span>
+                                    <span class="text-inverse"><%= c.name %></span><br>
+                                    <small><%= c.note %></small>
                                 </td>
                                 <td class="text-center"><%= c.qty %></td>
                                 <td class="text-center"><%= c.price %></td>

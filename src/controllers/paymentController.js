@@ -74,10 +74,10 @@ exports.payment = (req, res) => {
             if (err) throw err;
             let orderID = results[0].insertId;
             let cart = CART;
-            let insertItem = 'INSERT INTO order_detail(order_id, food_name, price, qty, total_money) VALUES ?';
+            let insertItem = 'INSERT INTO order_detail(order_id, food_name, price, qty, total_money, note) VALUES ?';
             let items = [];
             for (let i = 0; i < cart.length; i++) {
-                items.push([orderID, cart[i].name, cart[i].price, cart[i].qty, cart[i].price * cart[i].qty]);
+                items.push([orderID, cart[i].name, cart[i].price, cart[i].qty, cart[i].price * cart[i].qty, cart.note]);
             }
             connection.query(insertItem, [items], (err, results) => {
                 if (err) throw err;
@@ -110,7 +110,7 @@ exports.paypal = (req, res) => {
         total += subtotal * cart[i].qty;
         items.push({
             "name": cart[i].name,
-            "sku": cart[i].brief,
+            "sku": cart[i].note,
             "price": subtotal.toString(),
             "currency": "USD",
             "quantity": cart[i].qty
@@ -188,10 +188,10 @@ exports.getSuccess = (req, res) => {
                 if (err) throw err;
                 let orderID = results[0].insertId;
                 let cart = CART;
-                let insertItem = 'INSERT INTO order_detail(order_id, food_name, price, qty, total_money) VALUES ?';
+                let insertItem = 'INSERT INTO order_detail(order_id, food_name, price, qty, total_money, note) VALUES ?';
                 let foodItems = [];
                 for (let i = 0; i < cart.length; i++) {
-                    foodItems.push([orderID, cart[i].name, cart[i].price, cart[i].qty, cart[i].price * cart[i].qty]);
+                    foodItems.push([orderID, cart[i].name, cart[i].price, cart[i].qty, cart[i].price * cart[i].qty, cart.note]);
                 }
                 connection.query(insertItem, [foodItems], (err, results) => {
                     if (err) throw err;
