@@ -12,6 +12,6 @@ route.post("/update/:code/:phone", tableController.updateTable);
 route.post("/updateNamePhone/:phone", tableController.updateNamePhone);
 
 route.get("/delete/:phone", tableController.deleteAllTable);
-route.get("/delete1/:code", tableController.deleteTable);
+route.get("/delete1/:code/:phone", tableController.deleteTable);
 
 module.exports = route;

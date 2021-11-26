@@ -143,21 +143,15 @@ exports.deleteAllTable = (req, res) => {
 }
 
 exports.deleteTable = (req, res) => {
-    connection.query('SELECT customerPhone FROM Reserve WHERE code=? LIMIT 1',[req.params.code], (err, customerPhones) => {
+    connection.query('DELETE FROM Reserve WHERE code=?',[req.params.code], (err) => {
         if (!err) {
-            connection.query('DELETE FROM Reserve WHERE code=?',[req.params.code], (err) => {
+            connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',[req.params.phone], (err, reserveInfors) => {
                 if (!err) {
-                    connection.query('SELECT * FROM Reserve WHERE customerPhone=? ORDER BY time ASC',[customerPhones[0].customerPhone], (err, reserveInfors) => {
-                        if (!err) {
-                            res.render('rudTable', {
-                                title: 'rudTable',
-                                status: 'search',
-                                reserveInfors: reserveInfors,
-                                alert: 'Delete Successfully'
-                            });
-                        } else {
-                            console.log(err);
-                        }
+                    res.render('rudTable', {
+                        title: 'rudTable',
+                        status: 'search',
+                        reserveInfors: reserveInfors,
+                        alert: 'Delete Successfully'
                     });
                 } else {
                     console.log(err);
