@@ -47,7 +47,7 @@ app.use(passport.session());
 
 app.get('*', (req, res, next) => {
     res.locals.cart = req.session.cart;
-    res.locals.user = req.user || null;
+    app.locals.user = req.session.user;
     next();
 })
 

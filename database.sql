@@ -49,6 +49,7 @@ CREATE TABLE `Customer` (
  	`point` int,
 	`history` text,
 	`feedbackID` int,
+	`image` varchar(255) NOT NULL DEFAULT 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png',
 	PRIMARY KEY (id) 
 );
 
@@ -58,8 +59,11 @@ CREATE TABLE `Feedback` (
     `id` int NOT NULL AUTO_INCREMENT, 
 	`content` text,
 	`CustomerID` int,
+	`FoodID` int,
+	`date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	PRIMARY KEY (id),
-	FOREIGN KEY (CustomerID) REFERENCES Customer (ID) ON DELETE CASCADE ON UPDATE CASCADE
+	FOREIGN KEY (CustomerID) REFERENCES Customer (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (FoodID) REFERENCES food (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Create table order
@@ -95,3 +99,45 @@ INSERT INTO `Category` (`id`, `name`) VALUES ('1', 'Món chính');
 INSERT INTO `Category` (`id`, `name`) VALUES ('2', 'Món khai vị');
 INSERT INTO `Category` (`id`, `name`) VALUES ('3', 'Tráng miệng');
 INSERT INTO `Category` (`id`, `name`) VALUES ('4', 'Nước uống');
+
+
+-- Create Statistics
+CREATE TABLE `Statistics` (
+	`id` int NOT NULL,
+	`jan`int NOT NULL DEFAULT 0,
+	`feb`int NOT NULL DEFAULT 0,
+	`mar`int NOT NULL DEFAULT 0,
+	`apr`int NOT NULL DEFAULT 0,
+	`may`int NOT NULL DEFAULT 0,
+	`june`int NOT NULL DEFAULT 0,
+	`july`int NOT NULL DEFAULT 0,
+	`aug`int NOT NULL DEFAULT 0,
+	`sep`int NOT NULL DEFAULT 0,
+	`oct`int NOT NULL DEFAULT 0,
+	`nov`int NOT NULL DEFAULT 0,
+	`dec`int NOT NULL DEFAULT 0,
+	PRIMARY KEY (id)
+)
+
+INSERT INTO `Statistics` (`id`,`nov`) VALUES
+(20,15),
+(21,4),
+(22,23),
+(23,6),
+(24,18),
+(25,20),
+(26,3),
+(27,17),
+(28,30),
+(29,11),
+(30,1),
+(31,0),
+(32,42),
+(33,2),
+(34,23),
+(35,17),
+(36,28),
+(37,40),
+(38,22);
+
+

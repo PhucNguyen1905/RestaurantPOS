@@ -1,8 +1,10 @@
 <%- include ('layouts/header') -%>
 
+<% if (user == null){ %>
+    <h1 style="margin: 10rem; text-align: center;">Please login to order</h1>
 
 <!-- order section starts  -->
-
+<% } else { %>
 <section style="margin-top: 4.5em;" class="order" id="order">
 
     <h3 class="sub-heading"> order now </h3>
@@ -56,6 +58,6 @@
     </form>
 
 </section>
-
+<% } %>
 <!-- order section ends -->
 <%- include ('layouts/footer') -%>

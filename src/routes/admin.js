@@ -2,6 +2,8 @@ const express = require("express");
 const route = express.Router();
 const categoryController = require("../controllers/admin_categoryController");
 const foodController = require('../controllers/admin_foodController');
+const customerController = require('../controllers/admin_customerController');
+const statisticsController = require('../controllers/admin_statisticsController');
 const authController = require('../controllers/admin_authControllers');
 const auth = require('../config/auth');
 const isAdmin = auth.isAdmin;
@@ -35,5 +37,14 @@ route.post('/register', authController.register);
 route.get('/login', authController.viewLogin);
 route.post('/login', authController.login);
 route.get('/logout', authController.logout);
+
+//This is for customer management
+route.get('/customer', isAdmin, customerController.viewAccount);
+route.post('/customer/feedback', isAdmin, customerController.viewFeedback);
+route.post('/customer/delete', isAdmin, customerController.deleteAccount);
+
+//This is for statistics
+route.get('/bestsellers', isAdmin, statisticsController.viewBestsellers);
+route.get('/revenue', isAdmin, statisticsController.viewRevenue);
 
 module.exports = route;

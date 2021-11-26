@@ -27,27 +27,30 @@
 <body>
 
     <!-- header section starts      -->
-
     <header>
-
         <a href="/" class="logo"><i class="fas fa-utensils"></i>Shiba.</a>
-
         <nav class="navbar">
-            <a class="" href="/">home</a>
+            <a class="active" href="/">home</a>
             <a href="/menu">menu</a>
             <a href="/about">about</a>
             <a href="/order">order</a>
             <a href="/table">table</a>
         </nav>
-
         <div class="icons">
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
-            <a href="/#dishes" class="fas fa-heart"></a>
-            <a href="/cart" class="fas fa-shopping-cart"></a>
+            <% if (user == null) { %>
+                <a href="/login" class="fas fa-sign-in-alt"></a>
+            <% } else { %>
+                <a href="/info" class="fas fa-user"></a>
+                <a href="/cart" class="fas fa-shopping-cart"></a>
+                <a href="/logout" class="fas fa-sign-out-alt"></a>
+            <% } %> 
         </div>
 
     </header>
+
+    <!-- header section ends-->
 
     <!-- header section ends-->
 

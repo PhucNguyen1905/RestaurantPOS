@@ -30,7 +30,6 @@ exports.register = (req, res) => {
         bcrypt.hash(password, salt, function (err, hash) {
             if (err)
                 console.log(err);
-
             password = hash;
             connection.query('INSERT INTO staff (fname, lname, email,password, phone, role_id) VALUES(?,?,?,?,?,?)', [fname, lname, username, password, phone, role], (err, rows) => {
                 if (err) throw err;
@@ -38,9 +37,6 @@ exports.register = (req, res) => {
             })
         });
     });
-
-
-
 }
 
 

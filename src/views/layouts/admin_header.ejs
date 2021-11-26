@@ -10,8 +10,8 @@
     <title><%= title %> </title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="/admin/css/styles.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -80,6 +80,20 @@
                                 <a class="nav-link" href="/admin/food/add-food">Add new Food</a>
                             </nav>
                         </div>
+                        <div class="sb-sidenav-menu-heading">Statistics</div>
+                        <a class="nav-link" href="/admin/bestsellers">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                            Best-sellers
+                        </a>
+                        <a class="nav-link" href="/admin/revenue">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Revenue
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Customer Management</div>
+                        <a class="nav-link" href="/admin/customer">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
+                            Accounts
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

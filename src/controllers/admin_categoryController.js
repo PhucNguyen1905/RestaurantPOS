@@ -34,8 +34,6 @@ exports.viewCategory = (req, res) => {
         }
 
     });
-
-
 }
 
 // View add category

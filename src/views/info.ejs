@@ -1,0 +1,53 @@
+<%- include ('layouts/header') -%>
+
+
+<!-- order section starts  -->
+<section style="margin-top: 4.5em;" class="order" id="order">
+
+    <h1 class="heading mt-5"> personal information </h1>
+
+    <form action="update_info" method="post">
+        <div class= "m-3 text-center">
+            <img style="width:150px; height:150px; border-radius:50%" src="<%= user[0].image %>" alt="...">
+            <p class="h2 pt-4 pb-3"><%= user[0].name %></p>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>your name</span>
+                <input type="text" name = "name" value= "<%= user[0].name %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>your email</span>
+                <input type="email" name = "email"  value= "<%= user[0].email %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>your phone number</span>
+                <input type="text" name = "phone" value= "<%= user[0].phone %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>your avatar</span>
+                <input type="text" name="image" value="<%= user[0].image %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>your point</span>
+                <input type="number" value= "<%= user[0].point %>" disabled>
+            </div>
+        </div>
+        <div class="text-center">
+            <input type="submit" value="update information" class="btn">
+        </div>
+    </form>
+</section>
+
+
+<!-- order section ends -->
+<%- include ('layouts/footer') -%>
+

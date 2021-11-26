@@ -15,8 +15,9 @@ module.exports = function (passport) {
     passport.use(new LocalStrategy(function (username, password, done) {
         connection.query('SELECT * FROM staff WHERE email = ?', [username], (err, staffs) => {
             if (err) throw err;
-            if (staffs.length == 0)
+            if (staffs.length == 0) {
                 return done(null, false, { message: 'No user found!' });
+            }
             bcrypt.compare(password, staffs[0].password, function (err, isMatch) {
                 if (err) throw err;
                 if (isMatch) {
@@ -36,6 +37,4 @@ module.exports = function (passport) {
             done(err, staffs[0]);
         })
     })
-
-
 }

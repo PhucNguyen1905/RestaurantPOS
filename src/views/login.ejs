@@ -1,36 +1,61 @@
-<%- include ('layouts/header') -%>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Add bootstrap for category -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- order section starts  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-    <section style="margin-top: 4.5em;" class="login" id="login">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .divider:after,.divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+    </style>
 
-        <h3 class="sub-heading"> Login </h3>
-        <h1 class="heading"> Input your information </h1>
+</head>
 
-        <form action="/" method="post">
-
-            <div class="inputBox">
-                <div class="input">
-                    <span>phonenumber</span>
-                    <input type="text" placeholder="enter your phonenumber" name="phonenumber">
+<body>
+    <section class="vh-100" style="background-color: #27AE60;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                    <h3 class="mb-5">SIGN IN TO SHIBA RESTAURANT</h3>
+                    <form action="/login" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" name="phone" id="inputPhone" placeholder="Phone number">
+                            <label for="inputPhone">Phone number</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password">
+                            <label for="inputPassword">Password</label>
+                        </div>
+                        <p style="color:red;" class = "text-center"><%= message %></p>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        </div>
+                        <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;" type="submit"><i class="fab fa-google me-2"></i> Sign in with google</button>
+                    </form>
+                    <div class = "mt-3">
+                      <p>Don't have an account? <a href="/register" class="link-info">Register here</a></p>
+                    </div>        
                 </div>
-
+              </div>
             </div>
-            <div class="inputBox">
-                <div class="input">
-                    <span>your password</span>
-                    <input type="password" placeholder="********" name="password">
-                </div>
-            </div>
-
-            <input type="submit" value="Login" class="btn">
-
-
-
-        </form>
-
-    </section>
-
-    <!-- order section ends -->
-    <%- include ('layouts/footer') -%>
+          </div>
+        </div>
+      </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
