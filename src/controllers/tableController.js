@@ -206,7 +206,7 @@ exports.managerDeleteTable = (req, res) => {
 
 // [POST] /managerResponse/:id
 exports.managerTableResponse = (req, res) => {
-    connection.query('UPDATE Reserve SET managerFeedback=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
+    connection.query('UPDATE Reserve SET managerResponse=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
         if (!err) {
             connection.query('SELECT * FROM Reserve', (err, tables) => {
                 if (!err) {

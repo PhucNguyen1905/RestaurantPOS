@@ -17,7 +17,7 @@ route.post('/category/edit-category/:id', categoryController.editCategory);
 route.get('/category/delete-category/:id', isAdmin, categoryController.deleteCategory);
 
 // This is for manage food
-route.get('/food', foodController.viewFood);
+route.get('/food', isAdmin, foodController.viewFood);
 route.get('/food/add-food', isAdmin, foodController.viewAddFood);
 route.post('/food/add-food', foodController.addFood);
 route.get('/food/edit-food/:id', isAdmin, foodController.viewEditFood);

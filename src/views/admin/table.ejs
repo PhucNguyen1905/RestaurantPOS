@@ -1,8 +1,6 @@
 <%- include ('../layouts/admin_header') -%>
-
-
 <% 
-    timeFunc = function(t) {
+    convertTime = function(t) {
         var date = new Date(t);
         date = date.getUTCFullYear() + '-' +
             ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
@@ -12,8 +10,6 @@
         return(date);
     }
 %> 
-
-
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
@@ -21,55 +17,40 @@
                 <strong>Success!</strong> <%= messages %>.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h1 class="mt-4">All Table</h1>
+            <h1 class="mt-4">All Tables</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                 <li class="breadcrumb-item active">List of Table</li>
             </ol>
-
             <div class="card mb-4">
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Customer Name</th>
                                 <th>Customer Phone</th>
-                                <th>Number People</th>
+                                <th>Number <br/>People</th>
                                 <th>Message</th>
                                 <th>Time</th>
                                 <th>Created At</th>
-                                <th>ID</th>
                                 <th>Status</th>
                                 <th>Manger Response</th>
-                                <th style="text-align: center;">Action</th>
+                                <th style="text-align: center; " class="col-2">Action</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>customerName</th>
-                                <th>customerPhone</th>
-                                <th>numberPeople</th>
-                                <th>message</th>
-                                <th>time</th>
-                                <th>createAt</th>
-                                <th>id</th>
-                                <th>status</th>
-                                <th>Manger Response</th>
-                                <th style="text-align: center;">Action</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <% tables.forEach(function(table){%>
                             <tr>
+                                <td><%= table.id %></td>
                                 <td><%= table.customerName %> </td>
                                 <td><%= table.customerPhone %> </td>
                                 <td><%= table.numberPeople %> </td>
                                 <td><%= table.message %> </td>
-                                <td><%= timeFunc(table.time) %> </td>
-                                <td><%= timeFunc(table.createAt) %> </td>
-                                <td><%= table.id %></td>
+                                <td><%= convertTime(table.time) %> </td>
+                                <td><%= convertTime(table.createAt) %> </td>
                                 <td><%= table.status %></td>
-                                <td><%= table.managerFeedback %></td>
+                                <td><%= table.managerResponse %></td>
                                 <td style="text-align: center;">
                                     <a class=" link-info" style="text-decoration: none;"data-bs-toggle="modal"
                                     data-bs-target="#responseModal<%= table.id %>">
@@ -121,7 +102,7 @@
                                                     <br/>
                                                     <form class= "needs-validation" method="POST" action="/table/managerResponse/<%= table.id %> " novalidate>
                                                         <div class="inputBox">
-                                                            <textarea type="text" class="form-control" name="content" ><%= table.managerFeedback %></textarea>
+                                                            <textarea type="text" class="form-control" name="content" ><%= table.managerResponse %></textarea>
                                                         </div>
                                                         <br/>
                                                         <select id="inputState" class="form-select" style="height: 50%;" name="status">

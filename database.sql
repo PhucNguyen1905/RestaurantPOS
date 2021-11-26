@@ -101,7 +101,7 @@ CREATE TABLE `Reserve` (
 	`message` text(400),
 	`time` datetime,
 	`status` ENUM('pending','accepted','not accept','canceled') DEFAULT 'pending',
-	`managerFeedback` text(100) DEFAULT '', 
+	`managerResponse` text(100) DEFAULT '', 
 	`createAt` datetime DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id)
 );

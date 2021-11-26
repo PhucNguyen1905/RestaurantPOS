@@ -1,6 +1,6 @@
 <%- include ('layouts/header') -%>
 <% 
-    timeFunc = function(t) {
+    convertTime = function(t) {
         var date = new Date(t);
         date = date.getUTCFullYear() + '-' +
             ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
@@ -39,7 +39,7 @@
                 <% if (status == 'extra') { %>
                     <input type="number" name="customerPhone" value=<%= reserveInfor.customerPhone %>>
                 <% } else { %>
-                    <input type="number" placeholder="enter your phone number" name="customerPhone">
+                    <input type="tel" placeholder="enter your phone number" name="customerPhone">
                 <%}%>
             </div>
             
@@ -66,7 +66,7 @@
             <div class="input">
                 <span>date and time</span>
                 <% if (status == 'extra') { %>
-                    <input type="datetime-local" value="<%= timeFunc(reserveInfor.time) %>" name="time" >
+                    <input type="datetime-local" value="<%= convertTime(reserveInfor.time) %>" name="time" >
                 <% } else { %>
                     <input type="datetime-local" name="time">
                 <%}%>
@@ -82,7 +82,11 @@
                 <%}%>
             </div>
         </div>
-        <input type="submit" value="reserve" class="btn">
+        <% if (status == 'extra') { %>
+            <input type="submit" value="reserve more" class="btn">
+        <% } else { %>
+            <input type="submit" value="reserve" class="btn">
+        <%}%>
     </form>
 </section>
 
