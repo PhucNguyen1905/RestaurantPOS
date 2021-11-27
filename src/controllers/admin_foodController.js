@@ -170,28 +170,6 @@ exports.deleteFood = (req, res) => {
 }
 
 
-// View status of food
-// exports.viewFoodStatus = (req, res) => {
-//     connection.query('SELECT * FROM food', (err, foods) => {
-//         // When done with the connection, release it
-//         if (!err) {
-//             res.render('admin/food_status', {
-//                 hidden: 'hidden',
-//                 messages: '',
-//                 title: 'Food status',
-//                 foods: foods
-//             })
-//         } else {
-//             console.log(err);
-//         }
-
-//     });
-
-
-// }
-
-
-
 // GET status ON
 exports.statusOn = (req, res) => {
     let status = 'on';

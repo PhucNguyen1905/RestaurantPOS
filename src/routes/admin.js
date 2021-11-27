@@ -3,13 +3,13 @@ const route = express.Router();
 const categoryController = require("../controllers/admin_categoryController");
 const foodController = require('../controllers/admin_foodController');
 const authController = require('../controllers/admin_authControllers');
+const statisticsController = require('../controllers/admin_statisticsController');
+const customerController = require('../controllers/admin_customerController');
 const auth = require('../config/auth');
 const isAdmin = auth.isAdmin;
 
-route.get('/', isAdmin, categoryController.viewAdminPanel);
-
 // This is for manage category
-route.get('/category', isAdmin, categoryController.viewCategory);
+route.get('/', isAdmin, categoryController.viewCategory);
 route.get('/category/add-category', isAdmin, categoryController.viewAddCategory);
 route.post('/category/add-category', categoryController.addCategory);
 route.get('/category/edit-category/:id', isAdmin, categoryController.viewEditCategory);
@@ -35,5 +35,15 @@ route.post('/register', authController.register);
 route.get('/login', authController.viewLogin);
 route.post('/login', authController.login);
 route.get('/logout', authController.logout);
+
+//This is for customer management
+route.get('/customer', isAdmin, customerController.viewAccount);
+route.post('/customer/feedback', customerController.viewFeedback);
+route.post('/customer/delete', customerController.deleteAccount);
+
+//This is for statistics
+route.get('/bestsellers', isAdmin, statisticsController.viewBestsellers);
+route.get('/revenue', isAdmin, statisticsController.viewRevenue);
+
 
 module.exports = route;

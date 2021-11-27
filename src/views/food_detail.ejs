@@ -21,7 +21,7 @@
             text-decoration: none;
         }
     </style>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -36,7 +36,6 @@
             <a href="/">home</a>
             <a class="active" href="/menu">menu</a>
             <a href="/about">about</a>
-            <a href="/order">order</a>
             <a href="/table">table</a>
         </nav>
 
@@ -47,6 +46,7 @@
             <a href="/login" class="fas fa-sign-in-alt"></a>
             <%}else{%>
             <a href="#"> Xin chào, <%= user.fname %></a>
+            <a href="/info" class="fas fa-user"></a>
             <i class="fas fa-bars" id="menu-bars"></i>
             <i class="fas fa-search" id="search-icon"></i>
             <a href="/logout" class="fas fa-sign-out-alt"></a>
@@ -133,7 +133,80 @@
 
         </div>
 
+        <div class="row py-5">
+            <h1>Comments</h1>
+        </div>
+        <% if (user != null) { %>
+        <div class="row pb-3">
+            <form id="feedbackForm">
+                <input type='hidden' name='userid' value='<%= user.id %>' />
+                <input type='hidden' name='foodid' value='<%= dish.id %>' />
+                <div class='form-group pb-2'>
+                    <textarea class='form-control' style="font-size: 18px!important; height: 120px" name='comment'
+                        placeholder='Leave a comment here'></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send comments</button>
+            </form>
+        </div>
+        <% } else { %>
+        <div class="row text-center pb-3">
+            <a href="/login">
+                <h1>Please login to comment</h1>
+            </a>
+        </div>
+        <% } %>
+        <hr>
+        <div class="row p-5">
+            <% if (feedback.length == 0) { %>
+            <h1 class="text-center">Be the first to comment</h1>
+            <% } else { %>
+            <% for (var i = 0; i < feedback.length; i++) { %>
+            <div class="row pb-2">
+                <div class='col-lg-3 text-center h2 fw-bold'>
+                    <div class="row justify-content-center">
+                        <img style="width:80px; height:80px; border-radius:50%; padding: 0 !important;"
+                            src="<%= feedback[i].image %>" alt="...">
+                    </div>
+                    <div class="pt-2 row justify-content-center">
+                        <%= feedback[i].lname %> <%= feedback[i].fname %>
+                    </div>
+                </div>
+                <div class='col-lg-6 h3'>
+                    <div class="row fst-italic pb-3">
+                        <span style='color:gray;display:inline;'><i class='fas fa-clock'></i> Commented at
+                            <%= feedback[i].date.toLocaleString() %> </span>
+                    </div>
+                    <div class="row h2">
+                        <%= feedback[i].content %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+        </div>
     </section>
+
+    <script type="text/javascript">
+        $('#feedbackForm').on('submit', function (event) {
+            event.preventDefault();
+            var userid = $("#feedbackForm input[name='userid']").val();
+            var foodid = $("#feedbackForm input[name='foodid']").val();
+            var content = $("#feedbackForm textarea[name='comment']").val();
+            if (content == '') alert('Please enter your feedback');
+            else {
+                $.ajax({
+                    url: "/info/feedback",
+                    data: { userid: userid, foodid: foodid, content: content },
+                    method: 'POST',
+                    success: function (data) {
+                        if (data.msg == 'success') alert('Your feedback has been sent');
+                        else alert('An error has occurred');
+                        window.location.reload();
+                    }
+                })
+            }
+        });
+    </script>
 
 
     <!-- order section ends -->

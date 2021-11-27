@@ -37,12 +37,20 @@ exports.viewDetail = (req, res) => {
             connection.query('SELECT * FROM category WHERE id = ?', [dishes[0].categories], (err, categories) => {
                 // When done with the connection, release it
                 if (!err) {
-                    res.render('food_detail', {
-                        title: dishes[0].name,
-                        category: categories[0].name,
-                        dish: dishes[0],
-                        user: USER
-                    })
+                    connection.query('SELECT * FROM feedback JOIN user on feedback.CustomerID = user.id WHERE FoodID = ? ORDER BY date DESC', [dishes[0].id], (er, feedback) => {
+                        if (!er) {
+                            res.render('food_detail', {
+                                title: dishes[0].name,
+                                category: categories[0].name,
+                                dish: dishes[0],
+                                feedback: feedback,
+                                user: USER
+                            });
+                        }
+                        else {
+                            console.log(er);
+                        }
+                    });
                 } else {
                     console.log(err);
                 }
@@ -180,5 +188,38 @@ exports.viewOrder = (req, res) => {
     res.render('order', {
         title: 'Order',
         user: USER
+    });
+}
+
+exports.viewInfo = (req, res) => {
+    res.render('info', {
+        title: 'Info',
+        user: USER
+    })
+
+};
+
+exports.updateInfo = (req, res) => {
+    connection.query('UPDATE user SET lname = ?, fname = ?, phone = ?, email = ?, image = ? WHERE id = ?', [req.body.lname, req.body.fname, req.body.phone, req.body.email, req.body.image, USER.id], (err) => {
+        if (!err) {
+            res.redirect('/logout');
+        }
+        else {
+            console.log(err);
+        }
+    });
+}
+
+exports.giveFeedback = (req, res) => {
+    let content = req.body.content;
+    let userid = req.body.userid;
+    let foodid = req.body.foodid;
+    connection.query('INSERT INTO feedback(content,CustomerID, FoodID) VALUES(?, ?, ?)', [content, userid, foodid], (err) => {
+        if (!err) {
+            res.json({ msg: 'success' });
+        }
+        else {
+            res.json({ msg: err });
+        }
     });
 }

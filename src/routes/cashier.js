@@ -10,7 +10,6 @@ route.get('/delete-order/:id', isCashier, cashierController.deteteOrder);
 route.get('/complete-order/:id', isCashier, cashierController.completeOrder);
 route.get('/finish-order', isCashier, cashierController.viewFinishOrder);
 
-// This is for manage category
 
 
 // This is for manage table

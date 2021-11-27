@@ -21,4 +21,10 @@ route.get('/login', authController.viewLogin);
 route.post('/login', authController.login);
 route.get('/logout', authController.logout);
 
+
+// User management
+route.get("/info", userController.viewInfo);
+route.post("/update_info", userController.updateInfo);
+route.post("/info/feedback", userController.giveFeedback);
+
 module.exports = route;

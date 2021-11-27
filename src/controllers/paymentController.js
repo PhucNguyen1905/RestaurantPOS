@@ -110,7 +110,7 @@ exports.paypal = (req, res) => {
         total += subtotal * cart[i].qty;
         items.push({
             "name": cart[i].name,
-            "sku": cart[i].note,
+            "sku": cart[i].brief,
             "price": subtotal.toString(),
             "currency": "USD",
             "quantity": cart[i].qty

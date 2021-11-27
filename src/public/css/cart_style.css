@@ -760,3 +760,8 @@ body{
 .remove-item a{
   color: white;
 }
+
+/* New */
+input{
+  text-transform: none;
+}
