@@ -3,8 +3,8 @@
 <!-- table section starts  -->
 <section style="margin-top: 4.5em;" class="order" id="order">
 
-    <h3 class="sub-heading"> Đặt bàn ngay </h3>
-    <a href="/table" class="link-primary" style="font-size: 17px;">Đặt bàn mới</a>
+    <h3 class="sub-heading"> Những bàn bạn đã đặt </h3>
+    <a href="/table" class="link-primary" style="font-size: 17px;"><i class="fas fa-plus-circle"></i>&ensp; Đặt bàn mới</a>
     <br/>
     
     <% if (status == 'search') { %>
@@ -12,7 +12,7 @@
             <form class= "needs-validation" novalidate >
                 <% if (alert) { %>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <%= alert %> 
+                        <b style="font-size: 1.5rem;"><%= alert %> </b>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <% } %> 
@@ -53,11 +53,23 @@
             <br/>
             <% var table_count = 1 %> 
             <% reserveInfors.forEach(function(reserveInfor) { %>
-                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.id %>" novalidate >
-                    <h2>Bàn <%= table_count %> </h2>
+                <form class= "needs-validation" method="POST" action="/table/update/<%= reserveInfor.id %> " novalidate>
+                    <h2><b>Bàn <%= table_count %></b></h2>
                     <% table_count += 1 %> 
-                    <h4>Trạng thái: <b><%= reserveInfor.status %></b></h4>
-                     <h4><i class="fas fa-reply"></i>&ensp;  Phản hồi: <b><%= reserveInfor.managerResponse %></b> </h4>
+                    <h4><i class="fas fa-toggle-on"></i>&ensp; 
+                        Trạng thái: 
+                            <% if (reserveInfor.status == 'pending') { %>
+                                <b style="color: blue"> Đang chờ xử lý </b>
+                            <% } else if (reserveInfor.status == 'accepted') { %>
+                                <b style="color: rgb(46, 226, 91)"> Được chấp nhận </b>
+                            <% } else if (reserveInfor.status == 'not accept') { %>
+                                <b style="color: rgb(11, 150, 243)"> Không được chấp nhận </b>
+                            <% } else { %>
+                                <b style="color: rgb(255, 72, 0)"> Đã hủy bỏ </b>
+                            <%}%>
+                    </h4>
+                    
+                    <h4><i class="fas fa-reply"></i>&ensp;  Phản hồi từ nhân viên: <b><%= reserveInfor.managerResponse %></b> </h4>
                     <div class="inputBox">
                         <div class="input">
                             
@@ -90,7 +102,6 @@
                                 <i class="fas fa-trash-alt"></i>
                                 Hủy
                             </a>
-                            
                         </div>
                         <div class="modal fade" id="deleteTable<%= reserveInfor.id %>" tabindex="-1"
                         aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -120,9 +131,8 @@
                 <br/>
             <% }); %>
         <% } else { %>
-            
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                Bạn chưa đặt bàn nào cả !!!
+                <b style="font-size: 1.5rem;">Bạn chưa đặt bàn nào cả !!!</b>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
              </div>
              <div style="height: 250px"></div>

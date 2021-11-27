@@ -53,7 +53,19 @@
                                 <td><%= table.message %> </td>
                                 <td><%= convertTime(table.time) %> </td>
                                 <td><%= convertTime(table.createAt) %> </td>
-                                <td><%= table.status %></td>
+                                <td>
+                                    <% if (tables.length > 0) { %> 
+                                        <% if (table.status == 'pending') { %>
+                                            <b style="color: blue"> Đang chờ xử lý </b>
+                                        <% } else if (table.status == 'accepted') { %>
+                                            <b style="color: rgb(46, 226, 91)"> Được chấp nhận </b>
+                                        <% } else if (table.status == 'not accept') { %>
+                                            <b style="color: rgb(11, 150, 243)"> Không được chấp nhận </b>
+                                        <% } else { %>
+                                            <b style="color: rgb(255, 72, 0)"> Đã hủy bỏ </b>
+                                        <%}%>
+                                    <%}%>
+                                </td>
                                 <td><%= table.managerResponse %></td>
                                 <td style="text-align: center;">
                                     <a class=" link-info" style="text-decoration: none;"data-bs-toggle="modal"
@@ -85,7 +97,7 @@
                                                         data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">
                                                         <a style="text-decoration: none; color: white;"
-                                                            href="/cashier/table-delete/<%=table.id%>">Hủy</a>
+                                                            href="/cashier/table-delete/<%=table.id%>/resolved">Hủy</a>
                                                     </button>
                                                 </div>
                                             </div>
@@ -104,7 +116,7 @@
                                                 <div class="modal-body">
                                                     <h5>Phản hồi cho khách hàng <%=table.fname%> <%=table.lname%>?</h5>
                                                     <br/>
-                                                    <form class= "needs-validation" method="POST" action="/cashier/table-response/<%= table.id %> " novalidate>
+                                                    <form class= "needs-validation" method="POST" action="/cashier/table-response/<%= table.id %>/resolved " novalidate>
                                                         <div class="inputBox">
                                                             <textarea type="text" class="form-control" name="content" ><%= table.managerResponse %></textarea>
                                                         </div>

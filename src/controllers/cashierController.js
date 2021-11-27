@@ -155,18 +155,33 @@ exports.manageTable = (req, res) => {
     });
 }
 
-// [GET] /table-delete/:id
+// [GET] /table-delete/:id/:type
 exports.deleteTable = (req, res) => {
     connection.query('DELETE FROM Reserve WHERE id=?',[req.params.id], (err) => {
         if (!err) {
-            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";', (err, tables) => {
+            var sql;
+            if (req.params.type == "unresolved") {
+                sql = 'SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";';
+            } else {
+                sql = 'SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status!="pending";';
+            }
+            connection.query(sql, (err, tables) => {
                 if (!err) {
-                    res.render('cashier/table-unresolved', {
-                        hidden: 'hidden',
-                        messages: '',
-                        title: 'Manage Tables',
-                        tables: tables
-                    })
+                    if (req.params.type == "unresolved") {
+                        res.render('cashier/table-unresolved', {
+                            hidden: 'hidden',
+                            messages: '',
+                            title: 'Đặt bàn | Chưa xử lý',
+                            tables: tables
+                        })
+                    } else {
+                        res.render('cashier/table-resolved', {
+                            hidden: 'hidden',
+                            messages: '',
+                            title: 'Đặt bàn | Đã xử lý',
+                            tables: tables
+                        })
+                    }
                 } else {
                     console.log(err);
                 }
@@ -183,14 +198,29 @@ exports.deleteTable = (req, res) => {
 exports.responseTable = (req, res) => {
     connection.query('UPDATE Reserve SET managerResponse=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
         if (!err) {
-            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";', (err, tables) => {
+            var sql;
+            if (req.params.type == "unresolved") {
+                sql = 'SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";';
+            } else {
+                sql = 'SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status!="pending";';
+            }
+            connection.query(sql, (err, tables) => {
                 if (!err) {
-                    res.render('cashier/table-unresolved', {
-                        hidden: 'hidden',
-                        messages: '',
-                        title: 'Manage Tables',
-                        tables: tables
-                    })
+                    if (req.params.type == "unresolved") {
+                        res.render('cashier/table-unresolved', {
+                            hidden: 'hidden',
+                            messages: '',
+                            title: 'Đặt bàn | Chưa xử lý',
+                            tables: tables
+                        })
+                    } else {
+                        res.render('cashier/table-resolved', {
+                            hidden: 'hidden',
+                            messages: '',
+                            title: 'Đặt bàn | Đã xử lý',
+                            tables: tables
+                        })
+                    }
                 } else {
                     console.log(err);
                 }
@@ -208,7 +238,7 @@ exports.viewTableResolved = (req, res) => {
             res.render('cashier/table-resolved', {
                 hidden: 'hidden',
                 messages: '',
-                title: 'Manage Tables',
+                title: 'Đặt bàn | Đã xử lý',
                 tables: tables
             })
         } else {
