@@ -5,6 +5,7 @@ const foodController = require('../controllers/admin_foodController');
 const authController = require('../controllers/admin_authControllers');
 const statisticsController = require('../controllers/admin_statisticsController');
 const customerController = require('../controllers/admin_customerController');
+const staffController = require('../controllers/admin_staffController');
 const auth = require('../config/auth');
 const isAdmin = auth.isAdmin;
 
@@ -30,8 +31,6 @@ route.get('/food/status-on/:id', isAdmin, foodController.statusOn);
 route.get('/food/status-off/:id', isAdmin, foodController.statusOff);
 
 // This is for login - logout
-route.get('/register', authController.viewRegister);
-route.post('/register', authController.register);
 route.get('/login', authController.viewLogin);
 route.post('/login', authController.login);
 route.get('/logout', authController.logout);
@@ -45,5 +44,11 @@ route.post('/customer/delete', customerController.deleteAccount);
 route.get('/bestsellers', isAdmin, statisticsController.viewBestsellers);
 route.get('/revenue', isAdmin, statisticsController.viewRevenue);
 
+
+// This is for staff management
+route.get('/staff', isAdmin, staffController.viewListAccount);
+route.get('/add-staff', isAdmin, staffController.viewAddStaff);
+route.post('/add-staff', staffController.addStaff);
+route.get('/delete-staff/:id', isAdmin, staffController.deleteStaff);
 
 module.exports = route;

@@ -3,73 +3,82 @@
     <main>
         <div class="container-fluid px-4">
             <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
-                <strong>Thành công!</strong> <%= messages %>.
+                <strong>Success!</strong> <%= messages %>.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h1 class="mt-4">Danh mục</h1>
+            <h1 class="mt-4">Quản lý nhân viên</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                <li class="breadcrumb-item active">Danh sách</li>
+                <li class="breadcrumb-item active">Danh sách tài khoản</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    <a class="btn btn-success" href="/admin/category/add-category">Thêm danh mục mới</a>
+                    <a class="btn btn-success" href="/admin/add-staff">Tạo tài khoản mới</a>
                 </div>
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>STT.</th>
-                                <th>Tên</th>
-                                <th style="text-align: center;">Hành động</th>
+                                <th>ID</th>
+                                <th>Họ và Tên</th>
+                                <th>Email</th>
+                                <th>Mật khẩu</th>
+                                <th>Số điện thoại</th>
+                                <th>Chức vụ</th>
+                                <th style="text-align: center;">Xóa</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>STT</th>
-                                <th>Tên</th>
-                                <th style="text-align: center;">Hành động</th>
+                                <th>ID</th>
+                                <th>Họ và Tên</th>
+                                <th>Email</th>
+                                <th>Mật khẩu</th>
+                                <th>Số điện thoại</th>
+                                <th>Chức vụ</th>
+                                <th style="text-align: center;">Xóa</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            <% let i = 1; %>
-                            <% categories.forEach(function(cat){%>
+                            <% staffs.forEach(function(s){%>
                             <tr>
-                                <td><%= i %> </td>
-                                <td><%= cat.name %> </td>
+                                <td><%= s.id %></td>
+                                <td><%= s.lname %> <%= s.fname %> </td>
+                                <td><%= s.email %></td>
+                                <td><%= s.password %></td>
+                                <td><%= s.phone %></td>
+                                <% if(s.role_id == 2){%>
+                                <td>Thu ngân</td>
+                                <%}else{%>
+                                <td>Nhà bếp</td>
+                                <%} %>
                                 <td style="text-align: center;">
-                                    <a class=" link-info" style="text-decoration: none;"
-                                        href="/admin/category/edit-category/<%=cat.id%>">
-                                        <i class="fas fa-edit"></i>
-                                        Edit
-                                    </a>
-                                    -
                                     <a class="link-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal<%= cat.id %>" style="text-decoration: none;">
-                                        Delete
+                                        data-bs-target="#deleteModal<%= s.id %>" style="text-decoration: none;">
+                                        Xóa
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="deleteModal<%= cat.id %>" tabindex="-1"
+                                    <div class="modal fade" id="deleteModal<%= s.id %>" tabindex="-1"
                                         aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Category</h5>
+                                                    <h5 class="modal-title" id="deleteModalLabel">Xóa tài khoản</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Xóa danh mục: <%=cat.name%>?
+                                                    Xóa tài khoản của <%=s.fname%>?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">
                                                         <a style="text-decoration: none; color: white;"
-                                                            href="/admin/category/delete-category/<%=cat.id%>">Xóa</a>
+                                                            href="/admin/delete-staff/<%=s.id%>">Xóa</a>
                                                     </button>
                                                 </div>
                                             </div>
@@ -77,7 +86,6 @@
                                     </div>
                                 </td>
 
-                                <% i++; %>
                             </tr>
 
                             <%}) %>

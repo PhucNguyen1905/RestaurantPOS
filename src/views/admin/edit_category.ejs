@@ -2,27 +2,27 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Edit Category</h1>
+            <h1 class="mt-4">Chỉnh sửa danh mục</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
-                <li class="breadcrumb-item active">Edit a Category</li>
+                <li class="breadcrumb-item"><a href="/admin/category">Danh mục</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    <a class="btn btn-primary" href="/admin/category">Back to all Categories</a>
+                    <a class="btn btn-primary" href="/admin">Về danh sách</a>
                 </div>
 
                 <div class="card-body">
                     <form method="post" action="/admin/category/edit-category/<%= cat.id %>">
                         <div class="form-group">
-                            <label for="">Edit</label>
+                            <label for="">Tên</label>
                             <input type="text" class="form-control" name="name" value="<%= cat.name %>"
                                 placeholder="Name">
                         </div>
 
-                        <button class="btn btn-success mt-2">Edit</button>
+                        <button class="btn btn-success mt-2">Sửa</button>
                     </form>
                 </div>
 

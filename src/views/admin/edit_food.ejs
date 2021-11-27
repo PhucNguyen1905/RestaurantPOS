@@ -2,42 +2,42 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Edit Food</h1>
+            <h1 class="mt-4">Chỉnh sửa món ăn</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="/admin/food">Food</a></li>
-                <li class="breadcrumb-item active">Edit Food</li>
+                <li class="breadcrumb-item"><a href="/admin/food">Món ăn</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    <a class="btn btn-primary" href="/admin/food">Back to all Foods</a>
+                    <a class="btn btn-primary" href="/admin/food">Về danh sách</a>
                 </div>
 
                 <div class="card-body">
                     <form method="post" action="/admin/food/edit-food/<%= food.id %>">
                         <div class="form-group">
-                            <label for="">Name</label>
+                            <label for="">Tên</label>
                             <input type="text" class="form-control" name="name" value="<%= food.name %>"
                                 placeholder="Food name">
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Price</label>
+                            <label for="">Giá</label>
                             <input type="number" class="form-control" name="price" value="<%= food.price %>"
                                 placeholder="Price">
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Brief</label>
+                            <label for="">Mô tả ngắn</label>
                             <input type="text" class="form-control" name="brief" value="<%= food.brief %>"
                                 placeholder="Short description about food">
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Description</label>
+                            <label for="">Mô tả</label>
                             <textarea name="description" class="form-control" cols="25" rows="7"
                                 placeholder="Describe new food here"><%= food.description %></textarea>
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Category</label>
+                            <label for="">Danh mục</label>
                             <select name="category" class="form-control">
                                 <% categories.forEach(function(cat){ %>
                                 <option value="<%= cat.id %>" <% if(cat.id == food.categories){%> selected="selected"
@@ -59,7 +59,7 @@
                         </div> -->
 
 
-                        <button class="btn btn-success mt-2">Submit</button>
+                        <button class="btn btn-success mt-2">Sửa</button>
 
                     </form>
                 </div>

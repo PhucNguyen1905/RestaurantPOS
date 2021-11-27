@@ -2,27 +2,27 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Add new Category</h1>
+            <h1 class="mt-4">Thêm danh mục</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
-                <li class="breadcrumb-item active">Add new Category</li>
+                <li class="breadcrumb-item"><a href="/admin">Danh mục</a></li>
+                <li class="breadcrumb-item active">Danh mục mới</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    <a class="btn btn-primary" href="/admin/category">Back to all Categories</a>
+                    <a class="btn btn-primary" href="/admin">Về danh sách</a>
                 </div>
 
                 <div class="card-body">
                     <form method="post" action="/admin/category/add-category">
 
                         <div class="form-group">
-                            <label for="">Add</label>
-                            <input type="text" class="form-control" name="name" placeholder="Name of new Category">
+                            <label for="">Tên</label>
+                            <input type="text" class="form-control" name="name" placeholder="Tên danh mục">
                         </div>
 
-                        <button class="btn btn-success mt-2">Submit</button>
+                        <button class="btn btn-success mt-2">Thêm</button>
                     </form>
                 </div>
 

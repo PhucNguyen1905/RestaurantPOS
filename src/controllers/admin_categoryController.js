@@ -56,7 +56,7 @@ exports.addCategory = (req, res) => {
                 if (!err) {
                     res.render('admin/category_list', {
                         hidden: '',
-                        messages: 'Category added',
+                        messages: 'Đã thêm một danh mục',
                         title: 'Category',
                         categories: categories
                     })
@@ -103,7 +103,7 @@ exports.editCategory = (req, res) => {
                 if (!err) {
                     res.render('admin/category_list', {
                         hidden: '',
-                        messages: 'Category edited',
+                        messages: 'Đã sửa một danh mục',
                         title: 'Category',
                         categories: categories
                     })
@@ -132,7 +132,7 @@ exports.deleteCategory = (req, res) => {
                 if (!err) {
                     res.render('admin/category_list', {
                         hidden: '',
-                        messages: 'One category deleted',
+                        messages: 'Đã xóa một danh mục',
                         title: 'Category',
                         categories: categories
                     })

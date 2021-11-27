@@ -13,30 +13,6 @@ const connection = mysql.createPool({
 });
 
 
-// Register 
-exports.viewRegister = (req, res) => {
-    res.render('admin/register');
-}
-
-exports.register = (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    let fname = req.body.fname;
-    let lname = req.body.lname;
-    let phone = req.body.phone;
-    let address = req.body.address;
-    let role = req.body.role;
-
-    let sql = 'INSERT INTO user (fname, lname, email,password, phone,address, role_id) VALUES(?,?,?,?,?,?,?)'
-    connection.query(sql, [fname, lname, username, password, phone, address, role], (err, rows) => {
-        if (err) throw err;
-        res.redirect('/admin/login');
-    })
-
-
-
-}
-
 
 
 // Login
