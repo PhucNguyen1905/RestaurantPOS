@@ -14,11 +14,11 @@
             <thead>
               <tr>
                 <th class="text-center">ID</th>
-                <th class="text-center">Name</th>
-                <th class="text-center">Phone</th>
+                <th class="text-center">Tên</th>
+                <th class="text-center">Điện thoại</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Password</th>
-                <th class="text-center">Action</th>
+                <th class="text-center">Mật khẩu</th>
+                <th class="text-center">Hành động</th>
               </tr>
             </thead>
             <tbody>
@@ -70,7 +70,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Feedbacks</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Đánh giá</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -90,7 +90,7 @@
     <div class="modal-dialog text-white">
       <div class="modal-content bg-danger">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Delete account</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Xóa tài khoản</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form id="deleteForm">
@@ -98,8 +98,8 @@
           <div class="modal-body">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-light">Confirm</button>
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-light">Xác nhận</button>
           </div>
         </form>
       </div>
@@ -131,7 +131,7 @@
     //delete jquery
     $(document).on('click', '.btn-delete', function (e) {
       var id = $(this).data('id');
-      var content = "Are you sure you want to delete phone number '" + $(this).data('phone') + "' from accounts?";
+      var content = "Bạn muốn xóa tài khoản với SĐT '" + $(this).data('phone') + "'?";
       $('#deleteModal .modal-body').html(content);
       $("#deleteForm input[name='id']").val(id);
       $("#deleteModal").modal('show');

@@ -134,7 +134,7 @@
         </div>
 
         <div class="row py-5">
-            <h1>Comments</h1>
+            <h1>Bình luận</h1>
         </div>
         <% if (user != null) { %>
         <div class="row pb-3">
@@ -143,22 +143,22 @@
                 <input type='hidden' name='foodid' value='<%= dish.id %>' />
                 <div class='form-group pb-2'>
                     <textarea class='form-control' style="font-size: 18px!important; height: 120px" name='comment'
-                        placeholder='Leave a comment here'></textarea>
+                        placeholder='Gõ bình luận ở đây'></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send comments</button>
+                <button type="submit" class="btn btn-primary">Đăng bình luận</button>
             </form>
         </div>
         <% } else { %>
         <div class="row text-center pb-3">
             <a href="/login">
-                <h1>Please login to comment</h1>
+                <h1>Đăng nhập để bình luận</h1>
             </a>
         </div>
         <% } %>
         <hr>
         <div class="row p-5">
             <% if (feedback.length == 0) { %>
-            <h1 class="text-center">Be the first to comment</h1>
+            <h1 class="text-center">Hãy là người bình luận đầu tiên</h1>
             <% } else { %>
             <% for (var i = 0; i < feedback.length; i++) { %>
             <div class="row pb-2">
@@ -192,14 +192,14 @@
             var userid = $("#feedbackForm input[name='userid']").val();
             var foodid = $("#feedbackForm input[name='foodid']").val();
             var content = $("#feedbackForm textarea[name='comment']").val();
-            if (content == '') alert('Please enter your feedback');
+            if (content == '') alert('Hãy nhập bình luận');
             else {
                 $.ajax({
                     url: "/info/feedback",
                     data: { userid: userid, foodid: foodid, content: content },
                     method: 'POST',
                     success: function (data) {
-                        if (data.msg == 'success') alert('Your feedback has been sent');
+                        if (data.msg == 'success') alert('Bình luận đã được gửi');
                         else alert('An error has occurred');
                         window.location.reload();
                     }
