@@ -1,0 +1,113 @@
+<%- include ('../layouts/admin_header') -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Best-sellers</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                <li class="breadcrumb-item active">Best-sellers of the month</li> 
+            </ol>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-chart-bar me-1"></i>
+                            Monthly Best-sellers
+                        </div>
+                        <div class="card-body"><canvas id="bestsellerChart" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Best-sellers Table
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr >
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Brief</th>
+                                <th>Description</th>
+                                <th>Sales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let i = 0; %>
+                            <% food.forEach(function(dish){%>
+                            <tr>
+                                <td><%= dish.name %> </td>
+                                <td><%= dish.price %> </td>
+                                <td><%= dish.categories %> </td>
+                                <td><%= dish.brief %> </td>
+                                <td><%= dish.description %> </td>
+                                <td><%= sold[i] %></td>
+                            </tr>
+                            <% i++; %>
+                            <%}) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script>
+
+    var foodLabel = '<%- JSON.stringify(food.map(a => a.name)) %>';
+    var soldData = '<%- JSON.stringify(sold) %>';
+
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Bar Chart Example
+    var ctx = document.getElementById("bestsellerChart");
+    var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: JSON.parse(foodLabel),
+        datasets: [{
+        label: "Sales",
+        backgroundColor: "rgba(2,117,216,1)",
+        borderColor: "rgba(2,117,216,1)",
+        data: JSON.parse(soldData),
+        }],
+    },
+    options: {
+        scales: {
+        xAxes: [{
+            time: {
+            unit: 'month'
+            },
+            gridLines: {
+            display: false
+            },
+            ticks: {
+            maxTicksLimit: 10
+            }
+        }],
+        yAxes: [{
+            ticks: {
+            min: 0,
+            max: 100,
+            maxTicksLimit: 8
+            },
+            gridLines: {
+            display: true
+            }
+        }],
+        },
+        legend: {
+        display: false
+        }
+    }
+    });
+</script>
+
+
+<%- include ('../layouts/admin_footer') -%>

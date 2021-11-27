@@ -1,0 +1,58 @@
+<%- include ('layouts/header') -%>
+
+
+<!-- order section starts  -->
+<section style="margin-top: 4.5em;" class="order" id="order">
+
+    <h1 class="heading mt-5"> personal information </h1>
+
+    <form action="update_info" method="post">
+        <div class="m-3 text-center">
+            <img style="width:150px; height:150px; border-radius:50%" src="<%= user.image %>" alt="...">
+            <p class="h2 pt-4 pb-3"><%= user.lname %> <%= user.fname %></p>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Họ</span>
+                <input type="text" name="lname" value="<%= user.lname %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Tên</span>
+                <input type="text" name="fname" value="<%= user.fname %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Email</span>
+                <input type="email" name="email" value="<%= user.email %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Số điện thoại</span>
+                <input type="text" name="phone" value="<%= user.phone %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Avatar</span>
+                <input type="text" name="image" value="<%= user.image %>">
+            </div>
+        </div>
+        <div class="inputBox justify-content-center mb-3">
+            <div class="input">
+                <span>Điểm tích lũy</span>
+                <input type="number" value="<%= user.point %>" disabled>
+            </div>
+        </div>
+        <div class="text-center">
+            <input type="submit" value="update information" class="btn">
+        </div>
+    </form>
+</section>
+
+
+<!-- order section ends -->
+<%- include ('layouts/footer') -%>

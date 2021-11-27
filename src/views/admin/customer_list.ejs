@@ -1,0 +1,157 @@
+<%- include ('../layouts/admin_header') -%>
+<div id="layoutSidenav_content">
+  <main>
+    <div class="container-fluid px-4">
+      <h1 class="mt-4">Customer</h1>
+      <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+        <li class="breadcrumb-item active">List of Customers' accounts</li>
+      </ol>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <table id="datatablesSimple">
+            <thead>
+              <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Phone</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Password</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let i = 1; %>
+              <% customers.forEach(function(customer){%>
+              <tr>
+                <td><%= customer.id %></td>
+                <td><%= customer.lname %> <%= customer.fname %></td>
+                <td><%= customer.phone %></td>
+                <td><%= customer.email %></td>
+                <td><%= customer.password %></td>
+                <td style="text-align: center;">
+
+                  <button type="button" class="btn btn-sm btn-feedback btn-primary mr-2" data-id='<%= customer.id %>'><i
+                      class="fas fa-comment-dots"></i></button>
+                  <button type="button" class="btn btn-sm btn-delete btn-danger" data-id='<%= customer.id %>'
+                    data-phone='<%= customer.phone %>'><i class="fas fa-trash"></i></button>
+                </td>
+                <% i++; %>
+              </tr>
+              <%}) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- History Modal -->
+  <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Order History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Feedbacks</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="accordion" id="feedbackAccordion">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog text-white">
+      <div class="modal-content bg-danger">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="deleteForm">
+          <input class="form-control" type="hidden" name="id">
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-light">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    //feedback jquery
+    $(document).on('click', '.btn-feedback', function (e) {
+      $("#feedbackModal").modal('show');
+      var id = $(this).data('id');
+      $.ajax({
+        url: "/admin/customer/feedback",
+        data: { id: id },
+        method: 'POST',
+        success: function (data) {
+          if (data.content == '') {
+            $("#feedbackModal .modal-body").html("No feedbacks");
+          }
+          else {
+            var content = "<div class='accordion' id='feedbackAccordion'>" + data.content + "</div>";
+            $("#feedbackModal .modal-body").html(content);
+          }
+          $("#feedbackModal").modal('show');
+        }
+      })
+    });
+
+    //delete jquery
+    $(document).on('click', '.btn-delete', function (e) {
+      var id = $(this).data('id');
+      var content = "Are you sure you want to delete phone number '" + $(this).data('phone') + "' from accounts?";
+      $('#deleteModal .modal-body').html(content);
+      $("#deleteForm input[name='id']").val(id);
+      $("#deleteModal").modal('show');
+    });
+
+    $(document).on('submit', '#deleteForm', function (e) {
+      e.preventDefault();
+      var id = $("#deleteForm input[name='id']").val();
+      $.ajax({
+        url: "/admin/customer/delete",
+        data: { id: id },
+        method: 'POST',
+        success: function (data) {
+          alert(data.content);
+          window.location.reload();
+        }
+      })
+
+    });
+  </script>
+
+
+  <%- include ('../layouts/admin_footer') -%>
