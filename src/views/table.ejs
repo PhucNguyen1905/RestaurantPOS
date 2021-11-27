@@ -1,17 +1,4 @@
 <%- include ('layouts/header') -%>
-<% 
-    convertTime = function(t) {
-        var date = new Date(t);
-        console.log('date: ', date);
-        date = date.getUTCFullYear() + '-' +
-            ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
-            ('00' + date.getUTCDate()).slice(-2) + 'T' + 
-            ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
-            ('00' + date.getUTCMinutes()).slice(-2);
-        console.log('date2: ', date);
-        return(date);
-    }
-%> 
 
 <!-- table section starts  -->
 <section style="margin-top: 4.5em;" class="order" id="order">

@@ -203,10 +203,10 @@ CREATE TABLE `Reserve` (
 	`id` int(11) NOT NULL,
 	`numberPeople` int DEFAULT 1,
 	`message` text(400),
-	`time` datetime,
+	`time` timestamp,
 	`status` ENUM('pending','accepted','not accept','canceled') DEFAULT 'pending',
 	`managerResponse` text(100) DEFAULT '', 
-	`createAt` datetime DEFAULT CURRENT_TIMESTAMP,
+	`createAt` timestamp DEFAULT CURRENT_TIMESTAMP,
   `CustomerID` int(11) NOT NULL
 );
 

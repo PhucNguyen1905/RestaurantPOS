@@ -16,7 +16,7 @@ route.get('/finish-order', isCashier, cashierController.viewFinishOrder);
 // This is for manage table
 route.get("/table", isCashier, cashierController.manageTable);
 route.get("/table-delete/:id", isCashier, cashierController.deleteTable);
-route.post("/table-response/:id", isCashier, cashierController.responseTable);
+route.post("/table-response/:id", cashierController.responseTable);
 
 // This is for login - logout
 route.get('/login', cashierController.viewLogin);

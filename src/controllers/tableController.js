@@ -11,6 +11,16 @@ const connection = mysql.createPool({
 
 let User;
 
+function convertTime(timeStr) {
+    var date = new Date(timeStr);
+    date = date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+        ('00' + date.getUTCDate()).slice(-2) + 'T' + 
+        ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
+        ('00' + date.getUTCMinutes()).slice(-2);
+    return(date);
+}
+
 // [GET] /
 exports.viewTable = (req, res) => {
     if (!res.locals.user) { return res.redirect('login'); }
@@ -19,7 +29,8 @@ exports.viewTable = (req, res) => {
         title: 'Table Reservation', 
         alert: '',
         status: 'normal',
-        user: User
+        user: User,
+        convertTime
     });
 }
 
@@ -37,7 +48,8 @@ exports.createReserve = (req, res) => {
                         status: 'extra',
                         reserveInfor: reserveInfors[0],
                         alert: 'Reserve successfully!',
-                        user: User
+                        user: User,
+                        convertTime
                     });
                 } else {
                     console.log(err);
@@ -57,7 +69,8 @@ exports.rudTable = (req, res) => {
         title: 'rudTable',
         status: 'normal',
         alert: '',
-        user: req.user
+        user: req.user,
+        convertTime
     });
 }
 
@@ -72,7 +85,8 @@ exports.rudTable = (req, res) => {
                 status: 'search',
                 reserveInfors: reserveInfors,
                 alert: '',
-                user: User
+                user: User,
+                convertTime
             });
         } else {
             console.log(err);
@@ -95,7 +109,8 @@ exports.updateTable = (req, res) => {
                             status: 'search',
                             reserveInfors: reserveInfors,
                             alert: 'Update Successfully',
-                            user: User
+                            user: User,
+                            convertTime
                         });
                     } else {
                         console.log(err);
@@ -117,7 +132,8 @@ exports.deleteAllTable = (req, res) => {
                 title: 'rudTable',
                 status: 'normal',
                 alert: 'Delete Successfully',
-                user: User
+                user: User,
+                convertTime
             });
         } else {
             console.log(err);
@@ -138,7 +154,8 @@ exports.deleteTable = (req, res) => {
                         status: 'search',
                         reserveInfors: reserveInfors,
                         alert: 'Delete Successfully',
-                        user: User
+                        user: User,
+                        convertTime
                     });
                 } else {
                     console.log(err);
