@@ -1,0 +1,59 @@
+<%- include ('../layouts/admin_header') -%>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Tạo tài khoản Nhân viên</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admin/staff">Danh sách nhân viên</a></li>
+                <li class="breadcrumb-item active">Tạo tài khoản</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    <a class="btn btn-primary" href="/admin/staff">Về danh sách</a>
+                </div>
+
+                <div class="card-body">
+                    <form method="post" action="/admin/add-staff">
+                        <div class="form-group">
+                            <label for="">Họ</label>
+                            <input type="text" class="form-control" name="lname" placeholder="Họ">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tên</label>
+                            <input type="text" class="form-control" name="fname" placeholder="Tên">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" name="username" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mật khẩu</label>
+                            <input type="text" class="form-control" name="password" placeholder="Mật khẩu">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Số điện thoại</label>
+                            <input type="text" class="form-control" name="phone" placeholder="Số điện thoại">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Địa chỉ</label>
+                            <input type="text" class="form-control" name="address" placeholder="Địa chỉ">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="">Chức vụ</label>
+                            <select name="role" class="form-control">
+                                <option value="2">Thu ngân</option>
+                                <option value="3">Nhà bếp</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success mt-2">Tạo</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <%- include ('../layouts/admin_footer') -%>

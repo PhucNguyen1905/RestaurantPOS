@@ -63,7 +63,7 @@ exports.addFood = (req, res) => {
                 if (!err) {
                     res.render('admin/food_list', {
                         hidden: '',
-                        messages: 'Food added',
+                        messages: 'Đã thêm một món ăn',
                         title: 'Food',
                         foods: foods
                     })
@@ -125,7 +125,7 @@ exports.editFood = (req, res) => {
                 if (!err) {
                     res.render('admin/food_list', {
                         hidden: '',
-                        messages: 'Food edited',
+                        messages: 'Đã chỉnh sửa một món ăn',
                         title: 'Food',
                         foods: foods
                     })
@@ -154,7 +154,7 @@ exports.deleteFood = (req, res) => {
                 if (!err) {
                     res.render('admin/food_list', {
                         hidden: '',
-                        messages: 'One food deleted',
+                        messages: 'Đã xóa một món ăn',
                         title: 'Food',
                         foods: foods
                     })
@@ -182,7 +182,7 @@ exports.statusOn = (req, res) => {
                 if (!err) {
                     res.render('admin/food_list', {
                         hidden: '',
-                        messages: 'The food is available on Menu',
+                        messages: 'Món ăn sẽ xuất hiện trên Menu',
                         title: 'Food',
                         foods: foods
                     })
@@ -208,7 +208,7 @@ exports.statusOff = (req, res) => {
                 if (!err) {
                     res.render('admin/food_list', {
                         hidden: '',
-                        messages: 'The food is hidden from Menu',
+                        messages: 'Món ăn đã ẩn khỏi Menu',
                         title: 'Food',
                         foods: foods
                     })

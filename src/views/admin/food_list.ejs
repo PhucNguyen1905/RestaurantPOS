@@ -3,44 +3,44 @@
     <main>
         <div class="container-fluid px-4">
             <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
-                <strong>Success!</strong> <%= messages %>.
+                <strong>Thành công!</strong> <%= messages %>.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h1 class="mt-4">All foods</h1>
+            <h1 class="mt-4">Thực đơn</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                <li class="breadcrumb-item active">List of Food</li>
+                <li class="breadcrumb-item active">Danh sách món ăn</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    <a class="btn btn-success" href="/admin/food/add-food">Add new food</a>
+                    <a class="btn btn-success" href="/admin/food/add-food">Thêm món mới</a>
                 </div>
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Brief</th>
-                                <th>Description</th>
-                                <th style="text-align: center;">Action</th>
-                                <th style="text-align: center;">Status</th>
+                                <th>Ảnh</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Danh mục</th>
+                                <th>Mô tả ngắn</th>
+                                <th>Mô tả</th>
+                                <th style="text-align: center;">Hành động</th>
+                                <th style="text-align: center;">Trạng thái</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Category</th>
-                                <th>Brief</th>
-                                <th>Description</th>
-                                <th style="text-align: center;">Action</th>
-                                <th style="text-align: center;">Status</th>
+                                <th>Ảnh</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Danh mục</th>
+                                <th>Mô tả ngắn</th>
+                                <th>Mô tả</th>
+                                <th style="text-align: center;">Hành động</th>
+                                <th style="text-align: center;">Trạng thái</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -59,13 +59,13 @@
                                     <a class=" link-info" style="text-decoration: none;"
                                         href="/admin/food/edit-food/<%=food.id%>">
                                         <i class="fas fa-edit"></i>
-                                        Edit
+                                        Sửa
                                     </a>
                                     -
                                     <a class="link-danger" style="text-decoration: none;" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal<%= food.id %>">
                                         <i class="fas fa-trash-alt"></i>
-                                        Delete
+                                        Xóa
                                     </a>
                                     <!-- Modal -->
                                     <div class="modal fade" id="deleteModal<%= food.id %>" tabindex="-1"
@@ -73,19 +73,19 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Food</h5>
+                                                    <h5 class="modal-title" id="deleteModalLabel">Xóa món ăn</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Do you really want to delete <%=food.name%>?
+                                                    Bạn muốn xóa món: <%=food.name%>?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
+                                                        data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">
                                                         <a style="text-decoration: none; color: white;"
-                                                            href="/admin/food/delete-food/<%=food.id%>">Delete</a>
+                                                            href="/admin/food/delete-food/<%=food.id%>">Xóa</a>
                                                     </button>
                                                 </div>
                                             </div>
@@ -110,19 +110,19 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="statusModalLabel">Hide Food</h5>
+                                                    <h5 class="modal-title" id="statusModalLabel">Ẩn món ăn</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Do you really want to hide <%=food.name%> from Menu?
+                                                    Bạn muốn ẩn <%=food.name%> khỏi Menu?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
+                                                        data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">
                                                         <a style="text-decoration: none; color: white;"
-                                                            href="/admin/food/status-off/<%=food.id%>">Hide</a>
+                                                            href="/admin/food/status-off/<%=food.id%>">Ẩn</a>
                                                     </button>
                                                 </div>
                                             </div>
