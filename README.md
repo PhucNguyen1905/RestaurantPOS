@@ -11,5 +11,10 @@ Open http://localhost:8080/ to access home page
 
 Image Link: https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/ + food.image. Just store image name in database
 
+Role for user:
+- 1: Manager
+- 2: Cashier
+- 3: Kitchen Staff
+- 5: User
 
 

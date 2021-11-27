@@ -138,3 +138,66 @@ exports.logout = (req, res) => {
     res.redirect('/cashier/login');
 }
 
+
+// [GET] /table
+exports.manageTable = (req, res) => {
+    connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+        if (!err) {
+            res.render('cashier/table', {
+                hidden: 'hidden',
+                messages: '',
+                title: 'Manage Tables',
+                tables: tables
+            })
+        } else {
+            console.log(err);
+        }
+    });
+}
+
+// [GET] /table-delete/:id
+exports.deleteTable = (req, res) => {
+    connection.query('DELETE FROM Reserve WHERE id=?',[req.params.id], (err) => {
+        if (!err) {
+            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+                if (!err) {
+                    res.render('cashier/table', {
+                        hidden: 'hidden',
+                        messages: '',
+                        title: 'Manage Tables',
+                        tables: tables
+                    })
+                } else {
+                    console.log(err);
+                }
+            });
+        } else {
+            console.log(err);
+        }
+    });
+    
+}
+
+
+// [POST] /table-response/:id
+exports.responseTable = (req, res) => {
+    connection.query('UPDATE Reserve SET managerResponse=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
+        if (!err) {
+            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+                if (!err) {
+                    res.render('cashier/table', {
+                        hidden: 'hidden',
+                        messages: '',
+                        title: 'Manage Tables',
+                        tables: tables
+                    })
+                } else {
+                    console.log(err);
+                }
+            });
+        } else {
+            console.log(err);
+        }
+    });
+}
+    
