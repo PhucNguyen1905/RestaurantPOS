@@ -10,13 +10,12 @@ route.get('/delete-order/:id', isCashier, cashierController.deteteOrder);
 route.get('/complete-order/:id', isCashier, cashierController.completeOrder);
 route.get('/finish-order', isCashier, cashierController.viewFinishOrder);
 
-// This is for manage category
 
 
 // This is for manage table
 route.get("/table", isCashier, cashierController.manageTable);
 route.get("/table-delete/:id", isCashier, cashierController.deleteTable);
-route.post("/table-response/:id", isCashier, cashierController.responseTable);
+route.post("/table-response/:id", cashierController.responseTable);
 
 // This is for login - logout
 route.get('/login', cashierController.viewLogin);
