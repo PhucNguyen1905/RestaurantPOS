@@ -1,0 +1,155 @@
+<%- include ('../layouts/cashier_header') -%>
+<% 
+    convertTime = function(t) {
+        var date = new Date(t);
+        date = date.getUTCFullYear() + '-' +
+            ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+            ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+            ('00' + (date.getUTCHours()+7)).slice(-2) + ':' + 
+            ('00' + date.getUTCMinutes()).slice(-2);
+        return(date);
+    }
+%> 
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <div class="alert alert-success alert-dismissible fade show mt-4" <%= hidden %> role="alert">
+                <strong>Success!</strong> <%= messages %>.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <h1 class="mt-4">Đơn đặt bàn chưa xử lý</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/cashier">Dashboard</a></li>
+                <li class="breadcrumb-item active">Đơn đặt bàn chưa xử lý</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>ID đặt bàn</th>
+                                <th>ID KH</th>
+                                <th>Tên KH</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Số Người</th>
+                                <th>Note</th>
+                                <th>Thời gian</th>
+                                <th>Created At</th>
+                                <th>Tình trạng</th>
+                                <th>Phản hồi</th>
+                                <th style="text-align: center; " class="col-2">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% tables.forEach(function(table){%>
+                            <tr>
+                                <td><%= table.id %></td>
+                                <td><%= table.customerID %> </td>
+                                <td><%= table.fname %> <%= table.lname %></td>
+                                <td><%= table.phone %> </td>
+                                <td><%= table.email %> </td>
+                                <td><%= table.numberPeople %> </td>
+                                <td><%= table.message %> </td>
+                                <td><%= convertTime(table.time) %> </td>
+                                <td><%= convertTime(table.createAt) %> </td>
+                                <td><%= table.status %></td>
+                                <td><%= table.managerResponse %></td>
+                                <td style="text-align: center;">
+                                    <a class=" link-info" style="text-decoration: none;"data-bs-toggle="modal"
+                                    data-bs-target="#responseModal<%= table.id %>">
+                                        <i class="fas fa-edit"></i>
+                                        Phản hồi
+                                    </a>
+                                    -
+                                    <a class="link-danger" style="text-decoration: none;" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal<%= table.id %>">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Hủy
+                                    </a>
+                                    <!-- delete Modal -->
+                                    <div class="modal fade" id="deleteModal<%= table.id %>" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Hủy bàn</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn có chắc muốn hủy bàn của khách hàng <%=table.fname%> <%=table.lname%> này không?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <a style="text-decoration: none; color: white;"
+                                                            href="/cashier/table-delete/<%=table.id%>">Hủy</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- update Modal -->
+                                    <div class="modal fade" id="responseModal<%= table.id %>" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Phản hồi</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>Phản hồi cho khách hàng <%=table.fname%> <%=table.lname%>?</h5>
+                                                    <br/>
+                                                    <form class= "needs-validation" method="POST" action="/cashier/table-response/<%= table.id %> " novalidate>
+                                                        <div class="inputBox">
+                                                            <textarea type="text" class="form-control" name="content" ><%= table.managerResponse %></textarea>
+                                                        </div>
+                                                        <br/>
+                                                        <select id="inputState" class="form-select" style="height: 50%;" name="status">
+                                                            <% 
+                                                                var selected1 = ( table.status == 'pending' ) ? "selected" : "";
+                                                                var selected2 = ( table.status == 'accepted' ) ? "selected" : "";
+                                                                var selected3 = ( table.status == 'not accept' ) ? "selected" : "";
+                                                                var selected4 = ( table.status == 'canceled' ) ? "selected" : "";
+                                                                %><option <%= selected1 %> style="color: blue;"> pending </option><%
+                                                                %><option <%= selected2 %> style="color: green;"> accepted </option><%
+                                                                %><option <%= selected3 %> style="color: red;"> not accept </option><%
+                                                                %><option <%= selected4 %> style="color: red;"> canceled </option><%
+                                                            %>
+                                                        </select> 
+                                                        <hr/>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                    Đóng
+                                                                </button>
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="submit" value="OK" class="btn btn-primary">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <br/>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <%}) %>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include ('../layouts/admin_footer') -%>

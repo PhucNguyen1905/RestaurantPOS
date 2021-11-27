@@ -17,28 +17,28 @@
                 <strong>Success!</strong> <%= messages %>.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h1 class="mt-4">All Tables</h1>
+            <h1 class="mt-4">Đơn đặt bàn đã xử lý</h1>
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="/cashier">Dashboard</a></li>
-                <li class="breadcrumb-item active">List of Table</li>
+                <li class="breadcrumb-item active">Đơn đặt bàn đã xử lý</li>
             </ol>
             <div class="card mb-4">
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th>Table ID</th>
-                                <th>Customer ID</th>
-                                <th>Customer Name</th>
-                                <th>Customer Phone</th>
-                                <th>Customer Email</th>
-                                <th>Number <br/>People</th>
-                                <th>Message</th>
-                                <th>Time</th>
+                                <th>ID đặt bàn</th>
+                                <th>ID KH</th>
+                                <th>Tên KH</th>
+                                <th>SĐT</th>
+                                <th>Email</th>
+                                <th>Số Người</th>
+                                <th>Note</th>
+                                <th>Thời gian</th>
                                 <th>Created At</th>
-                                <th>Status</th>
-                                <th>Your Response</th>
-                                <th style="text-align: center; " class="col-2">Action</th>
+                                <th>Tình trạng</th>
+                                <th>Phản hồi</th>
+                                <th style="text-align: center; " class="col-2">Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,13 +59,13 @@
                                     <a class=" link-info" style="text-decoration: none;"data-bs-toggle="modal"
                                     data-bs-target="#responseModal<%= table.id %>">
                                         <i class="fas fa-edit"></i>
-                                        Response
+                                        Phản hồi
                                     </a>
                                     -
                                     <a class="link-danger" style="text-decoration: none;" data-bs-toggle="modal"
                                         data-bs-target="#deleteModal<%= table.id %>">
                                         <i class="fas fa-trash-alt"></i>
-                                        Delete
+                                        Hủy
                                     </a>
                                     <!-- delete Modal -->
                                     <div class="modal fade" id="deleteModal<%= table.id %>" tabindex="-1"
@@ -73,7 +73,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Delete Table</h5>
+                                                    <h5 class="modal-title" id="deleteModalLabel">Hủy bàn</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -82,10 +82,10 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
+                                                        data-bs-dismiss="modal">Đóng</button>
                                                     <button type="submit" class="btn btn-primary">
                                                         <a style="text-decoration: none; color: white;"
-                                                            href="/cashier/table-delete/<%=table.id%>">Delete</a>
+                                                            href="/cashier/table-delete/<%=table.id%>">Hủy</a>
                                                     </button>
                                                 </div>
                                             </div>
@@ -125,7 +125,7 @@
                                                         <div class="row">
                                                             <div class="col">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                                    Close
+                                                                    Đóng
                                                                 </button>
                                                             </div>
                                                             <div class="col">

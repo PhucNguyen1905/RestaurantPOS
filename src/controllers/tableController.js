@@ -44,10 +44,10 @@ exports.createReserve = (req, res) => {
             connection.query('SELECT * FROM Reserve WHERE customerID=? ORDER BY createAt DESC',[User.id], (err, reserveInfors) => {
                 if (!err) {
                     res.render('table', {
-                        title: 'Table',
+                        title: 'Table Reservation',
                         status: 'extra',
                         reserveInfor: reserveInfors[0],
-                        alert: 'Reserve successfully!',
+                        alert: 'Đặt bàn thành công!',
                         user: User,
                         convertTime
                     });
@@ -62,11 +62,11 @@ exports.createReserve = (req, res) => {
     });
 }
 
-// [GET] /rud
-exports.rudTable = (req, res) => {
+// [GET] /reserved
+exports.viewReservedTable = (req, res) => {
     if (!req.user) { return res.redirect('/login'); };
-    res.render('rudTable', {
-        title: 'rudTable',
+    res.render('table-reserved', {
+        title: 'Table Reservation',
         status: 'normal',
         alert: '',
         user: req.user,
@@ -74,14 +74,14 @@ exports.rudTable = (req, res) => {
     });
 }
 
-// [POST] /rud
-exports.rudTable = (req, res) => {
+// [POST] /reserved
+exports.viewReservedTable = (req, res) => {
     if (!req.user) { return res.redirect('/login'); };
     User = req.user;
     connection.query('SELECT * FROM Reserve WHERE customerID=? ORDER BY time ASC',[User.id], (err, reserveInfors) => {
         if (!err) {
-            res.render('rudTable', {
-                title: 'Update Table',
+            res.render('table-reserved', {
+                title: 'Table Reservation',
                 status: 'search',
                 reserveInfors: reserveInfors,
                 alert: '',
@@ -104,11 +104,11 @@ exports.updateTable = (req, res) => {
             if (!err) {
                 connection.query('SELECT * FROM Reserve WHERE customerID=? ORDER BY time ASC',[User.id], (err, reserveInfors) => {
                     if (!err) {
-                        res.render('rudTable', {
-                            title: 'rudTable',
+                        res.render('table-reserved', {
+                            title: 'Table Reservation',
                             status: 'search',
                             reserveInfors: reserveInfors,
-                            alert: 'Update Successfully',
+                            alert: 'Cập nhật thành công',
                             user: User,
                             convertTime
                         });
@@ -128,10 +128,10 @@ exports.deleteAllTable = (req, res) => {
     User = req.user;
     connection.query('DELETE FROM Reserve WHERE customerID=?',[User.id], (err) => {
         if (!err) {
-            res.render('rudTable', {
-                title: 'rudTable',
+            res.render('table-reserved', {
+                title: 'Table Reservation',
                 status: 'normal',
-                alert: 'Delete Successfully',
+                alert: 'Hủy tất cả bàn thành công!',
                 user: User,
                 convertTime
             });
@@ -149,11 +149,11 @@ exports.deleteTable = (req, res) => {
         if (!err) {
             connection.query('SELECT * FROM Reserve WHERE customerID=? ORDER BY time ASC',[User.id], (err, reserveInfors) => {
                 if (!err) {
-                    res.render('rudTable', {
-                        title: 'rudTable',
+                    res.render('table-reserved', {
+                        title: 'Table Reservation',
                         status: 'search',
                         reserveInfors: reserveInfors,
-                        alert: 'Delete Successfully',
+                        alert: 'Hủy bàn thành công',
                         user: User,
                         convertTime
                     });

@@ -6,8 +6,8 @@ const tableController = require("../controllers/tableController");
 route.get("/", isUser, tableController.viewTable);
 route.post("/", tableController.createReserve);
 
-route.get("/rud", isUser, tableController.rudTable);
-route.post("/rud", tableController.rudTable);
+route.get("/reserved", isUser, tableController.viewReservedTable);
+route.post("/reserved", tableController.viewReservedTable);
 route.post("/update/:id", tableController.updateTable);
 
 route.get("/deleteAll", isUser, tableController.deleteAllTable);

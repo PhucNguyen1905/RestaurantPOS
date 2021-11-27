@@ -141,9 +141,9 @@ exports.logout = (req, res) => {
 
 // [GET] /table
 exports.manageTable = (req, res) => {
-    connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+    connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";', (err, tables) => {
         if (!err) {
-            res.render('cashier/table', {
+            res.render('cashier/table-unresolved', {
                 hidden: 'hidden',
                 messages: '',
                 title: 'Manage Tables',
@@ -159,9 +159,9 @@ exports.manageTable = (req, res) => {
 exports.deleteTable = (req, res) => {
     connection.query('DELETE FROM Reserve WHERE id=?',[req.params.id], (err) => {
         if (!err) {
-            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";', (err, tables) => {
                 if (!err) {
-                    res.render('cashier/table', {
+                    res.render('cashier/table-unresolved', {
                         hidden: 'hidden',
                         messages: '',
                         title: 'Manage Tables',
@@ -183,9 +183,9 @@ exports.deleteTable = (req, res) => {
 exports.responseTable = (req, res) => {
     connection.query('UPDATE Reserve SET managerResponse=? , status=? WHERE id=?',[req.body.content, req.body.status, req.params.id], (err, tables) => {
         if (!err) {
-            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID;', (err, tables) => {
+            connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND R.status="pending";', (err, tables) => {
                 if (!err) {
-                    res.render('cashier/table', {
+                    res.render('cashier/table-unresolved', {
                         hidden: 'hidden',
                         messages: '',
                         title: 'Manage Tables',
@@ -195,6 +195,22 @@ exports.responseTable = (req, res) => {
                     console.log(err);
                 }
             });
+        } else {
+            console.log(err);
+        }
+    });
+}
+
+// [GET] /table-resolved
+exports.viewTableResolved = (req, res) => {
+    connection.query('SELECT R.*, U.id as customerID, U.fname, U.lname, U.phone, U.email FROM Reserve as R, User as U WHERE U.id=R.CustomerID AND NOT R.status="pending";', (err, tables) => {
+        if (!err) {
+            res.render('cashier/table-resolved', {
+                hidden: 'hidden',
+                messages: '',
+                title: 'Manage Tables',
+                tables: tables
+            })
         } else {
             console.log(err);
         }
