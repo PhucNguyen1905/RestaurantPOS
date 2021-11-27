@@ -8,10 +8,8 @@ const customerController = require('../controllers/admin_customerController');
 const auth = require('../config/auth');
 const isAdmin = auth.isAdmin;
 
-route.get('/', isAdmin, categoryController.viewAdminPanel);
-
 // This is for manage category
-route.get('/category', isAdmin, categoryController.viewCategory);
+route.get('/', isAdmin, categoryController.viewCategory);
 route.get('/category/add-category', isAdmin, categoryController.viewAddCategory);
 route.post('/category/add-category', categoryController.addCategory);
 route.get('/category/edit-category/:id', isAdmin, categoryController.viewEditCategory);

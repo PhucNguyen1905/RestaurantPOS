@@ -38,7 +38,7 @@
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                    <li><a class="dropdown-item" href="/admin/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="/admin/logout">Đăng xuất</a></li>
 
                 </ul>
             </li>
@@ -49,57 +49,52 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="/admin">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Analytics
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Food Management</div>
+                        <div class="sb-sidenav-menu-heading">Quản lý thực đơn</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Category
+                            Danh mục
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/admin/category">List of Categories</a>
-                                <a class="nav-link" href="/admin/category/add-category">Add new Category</a>
+                                <a class="nav-link" href="/admin/category">Danh sách danh mục</a>
+                                <a class="nav-link" href="/admin/category/add-category">Thêm danh mục mới</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
                             aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
-                            Food
+                            Món ăn
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" href="/admin/food">Food details</a>
-                                <a class="nav-link" href="/admin/food/add-food">Add new Food</a>
+                                <a class="nav-link" href="/admin/food">Danh sách món ăn</a>
+                                <a class="nav-link" href="/admin/food/add-food">Thêm món ăn mới</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Statistics</div>
+                        <div class="sb-sidenav-menu-heading">Thống kê</div>
                         <a class="nav-link" href="/admin/bestsellers">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
-                            Best-sellers
+                            Bán chạy nhất
                         </a>
                         <a class="nav-link" href="/admin/revenue">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Revenue
+                            Doanh thu
                         </a>
-                        <div class="sb-sidenav-menu-heading">Customer Management</div>
+                        <div class="sb-sidenav-menu-heading">Quản lý khách hàng</div>
                         <a class="nav-link" href="/admin/customer">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
-                            Accounts
+                            Tài khoản
                         </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Manager
+                    <div class="small">Dành cho:</div>
+                    Quản lý
                 </div>
             </nav>
         </div>
