@@ -58,11 +58,13 @@ const cartRoute = require('./routes/cart');
 const paymentRoute = require('./routes/payment');
 const adminRoute = require('./routes/admin');
 const cashierRoute = require('./routes/cashier');
+const tableRoute = require('./routes/table');
 
 app.use('/cashier', cashierRoute);
 app.use('/admin', adminRoute);
 app.use('/cart', cartRoute);
 app.use('/pay', paymentRoute);
+app.use('/table', tableRoute);
 app.use('/', userRoute);
 
 
