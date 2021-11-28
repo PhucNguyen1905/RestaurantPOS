@@ -28,12 +28,20 @@ exports.register = (req, res) => {
     let phone = req.body.phone;
     let address = req.body.address;
     let role = 5;
-
-    let sql = 'INSERT INTO user (fname, lname, email,password, phone,address, role_id) VALUES(?,?,?,?,?,?,?)'
-    connection.query(sql, [fname, lname, username, password, phone, address, role], (err, rows) => {
+    let checkMail = 'SELECT * FROM user WHERE email = ?';
+    connection.query(checkMail, [username], (err, results) => {
         if (err) throw err;
-        res.redirect('/login');
+        if (results.length !== 0) {
+            res.redirect('/login');
+        } else {
+            let sql = 'INSERT INTO user (fname, lname, email,password, phone,address, role_id) VALUES(?,?,?,?,?,?,?)'
+            connection.query(sql, [fname, lname, username, password, phone, address, role], (err, rows) => {
+                if (err) throw err;
+                res.redirect('/login');
+            })
+        }
     })
+
 
 
 

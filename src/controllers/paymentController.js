@@ -195,12 +195,14 @@ exports.getSuccess = (req, res) => {
                 }
                 connection.query(insertItem, [foodItems], (err, results) => {
                     if (err) throw err;
+                    delete req.session.cart;
                     res.render('payment/success_cash', {
                         title: 'Thành công',
                         user: USER
                     })
                 })
             })
+            delete req.session.cart;
             res.render('payment/success_cash', {
                 title: 'Thành công',
                 user: USER

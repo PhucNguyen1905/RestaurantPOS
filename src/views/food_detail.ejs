@@ -108,21 +108,21 @@
                             hidden="true">
                         <div class="inputBox">
                             <div class="input">
-                                <span for="qty">Select Quantity: </span>
-                                <input id="qty" type="number" name="quantity" min="1" placeholder="Food quantity"
+                                <span for="qty">Số lượng: </span>
+                                <input id="qty" type="number" name="quantity" min="1" placeholder="Số lượng món"
                                     required>
                             </div>
                             <div class="input">
-                                <span for="qty">Note: </span>
-                                <input type="textarea" placeholder="Please note here!" name="note">
+                                <span for="qty">Ghi chú: </span>
+                                <input type="textarea" placeholder="Thêm lời nhắn cho đầu bếp!" name="note">
                             </div>
                         </div>
 
                         <% if(user==undefined){%>
-                        <a href="/login" class="btn">Login to order</a>
+                        <a href="/login" class="btn">Đăng nhập để đặt</a>
 
                         <%}else{%>
-                        <button type="submit" class="btn">Add to cart</button>
+                        <button type="submit" class="btn">Thêm vào giỏ hàng</button>
 
                         <%} %>
 
