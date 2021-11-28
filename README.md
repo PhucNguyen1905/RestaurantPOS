@@ -4,6 +4,8 @@ Example template: https://www.youtube.com/watch?v=MJUssi2c6Ls&list=WL&index=4&t=
 
 Backend: NodeJs, Express, MySQL
 
+Source code is in folder **src**
+
 # Script for running
 Run project: **npm start**
 
