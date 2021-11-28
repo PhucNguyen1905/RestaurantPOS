@@ -31,12 +31,12 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Hủy tất cả bàn đã đặt</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel"><b style="font-size: 1.5rem;">Hủy tất cả bàn đã đặt</h5></b>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" style="font-size: 13px">
-                                    Bạn có chắc muốn hủy tất cả bàn đã đặt không?
+                                    <b style="font-size: 1.4rem;">Bạn có chắc muốn hủy tất cả bàn đã đặt không?</b>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
@@ -108,17 +108,17 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Hủy bàn</h5>
+                                        <h5 class="modal-title" id="deleteModalLabel"><b style="font-size: 1.5rem;">Hủy bàn</b></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Bạn có chắc muốn hủy bàn này không?
+                                        <b style="font-size: 1.5rem;">Bạn có chắc muốn hủy bàn này không?</b>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Đóng</button>
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" style="fill: red; ">
                                             <a style="text-decoration: none; color: white;"
                                                 href="/table/delete/<%= reserveInfors[0].id %>/<%= reserveInfors[0].customerPhone %>">Hủy ngay</a>
                                         </button>
