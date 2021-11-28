@@ -65,7 +65,7 @@ exports.addFood = (req, res) => {
                 if (newItem) {
                     req.session.cart.push({
                         name: food.name,
-                        qty: 1,
+                        qty: req.body.quantity,
                         note: req.body.note,
                         price: parseInt(food.price),
                         image: baseURLImg + food.image,
