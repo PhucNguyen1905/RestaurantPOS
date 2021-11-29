@@ -3,12 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2021 at 01:01 PM
+-- Generation Time: Nov 27, 2021 at 05:27 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.11
-
-drop database if EXISTS restaurantpos;
-create database restaurantpos;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,9 +41,7 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (2, 'Món khai vị'),
 (3, 'Tráng miệng'),
 (4, 'Nước uống'),
-(7, 'Coconut'),
-(8, 'BBC_TEMP'),
-(11, 'mysql');
+(23, 'Đặc biệt');
 
 -- --------------------------------------------------------
 
@@ -57,8 +52,20 @@ INSERT INTO `category` (`id`, `name`) VALUES
 CREATE TABLE `feedback` (
   `id` int(11) NOT NULL,
   `content` text DEFAULT NULL,
-  `CustomerID` int(11) DEFAULT NULL
+  `CustomerID` int(11) DEFAULT NULL,
+  `FoodID` int(11) DEFAULT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `content`, `CustomerID`, `FoodID`, `date`) VALUES
+(8, 'Món này rất ngon', 6, 1, '2021-11-26 15:38:04'),
+(9, 'Mình cũng thấy ngon', 7, 1, '2021-11-26 15:38:39'),
+(10, 'Món này bá cháy luôn mọi người ơi', 13, 1, '2021-11-27 15:57:42'),
+(11, 'Tuyệt cú mèo', 13, 3, '2021-11-27 15:57:53');
 
 -- --------------------------------------------------------
 
@@ -100,7 +107,10 @@ INSERT INTO `food` (`id`, `name`, `price`, `categories`, `brief`, `description`,
 (16, 'Gà xào hạt điều', 80000, 2, 'Một món ăn bổ dưỡng và thơm ngon', ' Nó có chứa rất nhiều protein và chất béo. Nó được xem là một món ăn nhẹ, có vị ngọt bùi và là một loại thực phẩm lành mạnh, ngon ngọt và nhiều chất dinh dưỡng. ', 'ga-xao-hat-dieu.jpeg', 'on'),
 (17, 'Nước nha đam đường phèn', 30000, 4, 'Giải độc cơ thể, giúp làn da tươi sáng.', ' Nha đam còn rất tốt cho sức khỏe, chữa bệnh huyết áp, xơ gan, béo phì', 'nha-dam.jpg', 'on'),
 (18, 'Bánh chuối nướng', 40000, 3, 'Món tuyệt vời để tráng miệng mà không sợ béo phì', 'Chuối nướng béo ngậy mùi nước cốt dừa cùng miếng chuối mềm ngon sẽ là món tráng miệng phù hợp với mọi người ', 'banh-chuoi.jpg', 'on'),
-(19, 'Bánh cuộn tinh than tre', 45000, 3, 'Hương vị đặc biệt và tốt cho sức khỏe', 'Bánh cuộn vốn nổi tiếng bởi sự mềm, xốp mà không loại bánh nào sánh được, sẽ càng thêm ngon khi kết với tinh than tre thanh nhẹ nữa. ', 'tinh-than-tre.jpg', 'on');
+(19, 'Bánh cuộn tinh than tre', 45000, 3, 'Hương vị đặc biệt và tốt cho sức khỏe', 'Bánh cuộn vốn nổi tiếng bởi sự mềm, xốp mà không loại bánh nào sánh được, sẽ càng thêm ngon khi kết với tinh than tre thanh nhẹ nữa. ', 'tinh-than-tre.jpg', 'on'),
+(27, 'Mì ý chay', 120000, 23, 'Món chay duy nhất mang hương vị Ý, cực thơm ngon.', 'Với tay nghề của đầu bếp chúng tôi, đây sẽ là món mì ý đặc biệt nhất mà các bạn từng thưởng thức. Sợi mì dai, giòn cắn sực sực. Mang lại hương vị Ý.', 'home-img-1.png', 'on'),
+(28, 'Gà quay nguyên con', 350000, 23, 'Gà vườn đạt chuẩn, thích hợp cho cả gia đình bạn.', 'Gà quay nguyên con, vị đậm đà trên từng sớ thịt. Thịt gà chứa rất nhiều chất dinh dưỡng, bổ ích cho con người. Trong thịt gà có chứa lượng đạm cao hơn rất nhiều so với nhiều loại thực phẩm khách như thịt lợn, thịt bò.', 'home-img-2.png', 'on'),
+(29, 'Pizza ngoại cỡ', 250000, 23, 'Pizza khổng lồ với đầy đủ các loại topping hải sản', 'Pizza , món ăn có nguồn gốc từ Ý bao gồm một dẹp đĩa của bánh bột đứng đầu với một số sự kết hợp của dầu ô liu , rau oregano, cà chua , ô liu , mozzarella hoặc khác pho mát.', 'home-img-3.png', 'on');
 
 -- --------------------------------------------------------
 
@@ -130,7 +140,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `fullname`, `phone`, `status`, `created`, `user_id`, `note`, `use_point`, `method`, `takeorhere`, `table_num`, `total_money`) VALUES
 (3, 'Nguyen Phuc', '0388542487', 'done', '2021-11-25 14:04:48', 4, NULL, NULL, 'Tiền mặt', 'here', 12, 523000),
 (6, 'Nguyen Phuc', '0388542487', 'done', '2021-11-26 11:38:14', 4, NULL, 'no', 'Tiền mặt', 'takeaway', 0, 506000),
-(7, 'Nguyen Phuc', '0388542487', 'wait', '2021-11-26 11:39:42', 4, NULL, 'no', 'Paypal', 'here', 12, 1320000);
+(7, 'Nguyen Phuc', '0388542487', 'wait', '2021-11-26 11:39:42', 4, NULL, 'no', 'Paypal', 'here', 12, 1320000),
+(8, 'Nguyễn Trọng Phúc', '0388542487', 'wait', '2021-11-26 15:55:40', 6, NULL, NULL, 'Paypal', 'here', 10, 377000);
 
 -- --------------------------------------------------------
 
@@ -162,7 +173,81 @@ INSERT INTO `order_detail` (`id`, `order_id`, `food_name`, `price`, `qty`, `tota
 (13, 7, 'Gà cuộn phô mai chiên xù', 119000, 3, 357000, NULL),
 (14, 7, 'Mỳ ý sốt kem trứng cá chuồn', 139000, 1, 139000, NULL),
 (15, 7, 'Sườn heo sốt BBQ', 129000, 2, 258000, NULL),
-(16, 7, 'Passion Fruit Panna Cotta', 60000, 1, 60000, NULL);
+(16, 7, 'Passion Fruit Panna Cotta', 60000, 1, 60000, NULL),
+(17, 8, 'Gà cuộn phô mai chiên xù', 119000, 2, 238000, NULL),
+(18, 8, 'Mỳ ý sốt kem trứng cá chuồn', 139000, 1, 139000, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reserve`
+--
+
+CREATE TABLE `reserve` (
+  `id` int(11) NOT NULL,
+  `numberPeople` int(11) DEFAULT 1,
+  `message` text DEFAULT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `status` enum('pending','accepted','not accept','canceled') DEFAULT 'pending',
+  `managerResponse` text DEFAULT '',
+  `createAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  `CustomerID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reserve`
+--
+
+INSERT INTO `reserve` (`id`, `numberPeople`, `message`, `time`, `status`, `managerResponse`, `createAt`, `CustomerID`) VALUES
+(1, 2, '', '2021-12-05 01:50:00', 'pending', '', '2021-11-27 07:47:18', 6),
+(2, 4, '', '2021-12-04 08:00:00', 'pending', '', '2021-11-27 07:59:29', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `statistics`
+--
+
+CREATE TABLE `statistics` (
+  `id` int(11) NOT NULL,
+  `jan` int(11) NOT NULL DEFAULT 0,
+  `feb` int(11) NOT NULL DEFAULT 0,
+  `mar` int(11) NOT NULL DEFAULT 0,
+  `apr` int(11) NOT NULL DEFAULT 0,
+  `may` int(11) NOT NULL DEFAULT 0,
+  `june` int(11) NOT NULL DEFAULT 0,
+  `july` int(11) NOT NULL DEFAULT 0,
+  `aug` int(11) NOT NULL DEFAULT 0,
+  `sep` int(11) NOT NULL DEFAULT 0,
+  `oct` int(11) NOT NULL DEFAULT 0,
+  `nov` int(11) NOT NULL DEFAULT 0,
+  `dec` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `statistics`
+--
+
+INSERT INTO `statistics` (`id`, `jan`, `feb`, `mar`, `apr`, `may`, `june`, `july`, `aug`, `sep`, `oct`, `nov`, `dec`) VALUES
+(1, 10, 10, 0, 0, 5, 0, 0, 0, 0, 0, 15, 0),
+(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0),
+(3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0),
+(4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0),
+(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0),
+(6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0),
+(7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0),
+(8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0),
+(9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0),
+(10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0),
+(14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0),
+(15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 23, 0),
+(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0),
+(17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 0),
+(18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0),
+(19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 0);
 
 -- --------------------------------------------------------
 
@@ -177,39 +262,30 @@ CREATE TABLE `user` (
   `email` varchar(30) DEFAULT NULL,
   `password` varchar(20) DEFAULT NULL,
   `point` int(11) DEFAULT 0,
-  `history` text DEFAULT NULL,
-  `feedbackID` int(11) DEFAULT NULL,
   `fname` varchar(30) DEFAULT NULL,
   `role_id` int(11) DEFAULT 5,
-  `address` text DEFAULT NULL
+  `address` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `lname`, `phone`, `email`, `password`, `point`, `history`, `feedbackID`, `fname`, `role_id`, `address`) VALUES
-(3, 'Nguyen', '0388542487', 'admin@admin.com', 'admin', 0, NULL, NULL, 'Phuc', 1, 'Vĩnh Long'),
-(4, 'Nguyen', '0388542487', 'ninjavip1st@gmail.com', '123456', 2879, NULL, NULL, 'Phuc', 5, 'Vĩnh Long'),
-(5, 'Nguyen', '0388542487', 'cashier1@gmail.com', '123456', 0, NULL, NULL, 'Cashier1', 2, 'Vĩnh Long');
-
--- --------------------------------------------------------
+INSERT INTO `user` (`id`, `lname`, `phone`, `email`, `password`, `point`, `fname`, `role_id`, `address`, `image`) VALUES
+(3, 'Nguyen', '0388542487', 'admin@admin.com', 'admin', 0, 'Phuc', 1, 'Vĩnh Long', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(4, 'Nguyen', '0388542487', 'ninjavip1st@gmail.com', '123456', 2879, 'Phuc', 5, 'Vĩnh Long', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(5, 'Nguyen', '0388542487', 'cashier1@gmail.com', '123456', 0, 'Cashier1', 2, 'Vĩnh Long', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(6, 'Nguyễn Trọng', '0388542487', '123@123.com', '123456', 377, 'Phúc', 5, 'Vĩnh Long', 'https://cdn-icons-png.flaticon.com/512/1674/1674291.png'),
+(7, 'Lê Nguyễn Minh', '0122763276', '123hieu@123.com', '123456', 0, 'Hiếu', 5, 'HCM city', 'https://cdn-icons-png.flaticon.com/512/1674/1674292.png'),
+(8, 'Nguyễn Trọng', '0388542487', 'user1@gmail.com', '123456', 0, 'Phúc', 5, 'Vĩnh Long', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(9, 'Nguyễn Trọng', '0906995989', 'kitchen1@gmail.com', '123456', 0, 'Phúc', 3, 'Xã Trung Ngãi, Huyện Vũng Liêm', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(10, 'Lê Nguyễn Minh', '0123456789', 'abc@abc.com', '123456', 0, 'Hiếu', 2, 'Vĩnh Long', 'https://raw.githubusercontent.com/PhucNguyen1905/RestaurantPOS/main/images/avatar.png'),
+(13, 'Nguyễn Trọng', '0906995989', 'phuc1@gmail.com', '123456', 0, 'Phúc', 5, 'KTX Khu A ĐHQG', 'https://cdn-icons-png.flaticon.com/512/1090/1090806.png');
 
 --
--- Table structure for table `reserve`
+-- Indexes for dumped tables
 --
-
-CREATE TABLE `Reserve` (
-	`id` int(11) NOT NULL,
-	`numberPeople` int DEFAULT 1,
-	`message` text(400),
-	`time` timestamp,
-	`status` ENUM('pending','accepted','not accept','canceled') DEFAULT 'pending',
-	`managerResponse` text(100) DEFAULT '', 
-	`createAt` timestamp DEFAULT CURRENT_TIMESTAMP,
-  `CustomerID` int(11) NOT NULL
-);
-
 
 --
 -- Indexes for table `category`
@@ -222,7 +298,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `CustomerID` (`CustomerID`);
+  ADD KEY `CustomerID` (`CustomerID`),
+  ADD KEY `FoodID` (`FoodID`);
 
 --
 -- Indexes for table `food`
@@ -245,61 +322,69 @@ ALTER TABLE `order_detail`
   ADD KEY `order_id` (`order_id`);
 
 --
+-- Indexes for table `reserve`
+--
+ALTER TABLE `reserve`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `CustomerID` (`CustomerID`);
+
+--
+-- Indexes for table `statistics`
+--
+ALTER TABLE `statistics`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `Reserve`
+-- AUTO_INCREMENT for dumped tables
 --
-
-ALTER TABLE `Reserve`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `CustomerID` (`CustomerID`);
-
-
---
--- AUTO_INCREMENT for table `feedback`
---
-ALTER TABLE `Reserve`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `reserve`
+--
+ALTER TABLE `reserve`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -308,15 +393,9 @@ ALTER TABLE `user`
 --
 -- Constraints for table `feedback`
 --
-ALTER TABLE `Reserve`
-  ADD CONSTRAINT `reserve_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
---
--- Constraints for table `feedback`
---
 ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`FoodID`) REFERENCES `food` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -329,6 +408,18 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_detail`
   ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `reserve`
+--
+ALTER TABLE `reserve`
+  ADD CONSTRAINT `reserve_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `statistics`
+--
+ALTER TABLE `statistics`
+  ADD CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`id`) REFERENCES `food` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
